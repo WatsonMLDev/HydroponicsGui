@@ -1,0 +1,27 @@
+{
+  "name": "projectcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "frontEnd/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aaaafireball/HydroponicsGui.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^18.0.1"
+  },
+  "dependencies": {
+    "electron-reload": "^2.0.0-alpha.1",
+    "node-fetch": "^3.2.3"
+  },
+  "bugs": {
+    "url": "https://github.com/aaaafireball/HydroponicsGui/issues"
+  },
+  "homepage": "https://github.com/aaaafireball/HydroponicsGui#readme"
+}
