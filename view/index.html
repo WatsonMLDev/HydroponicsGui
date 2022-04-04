@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8"/>
+    <title>Hydroponics</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <meta content="Webflow" name="generator"/>
+    <link href="style.css"
+          rel="stylesheet" type="text/css"/>
+</head>
+
+<body class="background">
+<div class="section wf-section">
+    <h4 class="heading">Hydroponics System</h4>
+    <a href="#" class="button header-button w-button">Start</a>
+    <a href="#" class="button-2 w-button">Force Stop</a>
+</div>
+
+<div class="w-layout-grid grid">
+    <div id="TabGroup" data-current="Tab 1" data-easing="ease"
+         data-duration-in="300" data-duration-out="100" class="w-tabs">
+        <div class="tabs-menu w-tab-menu"><a data-w-tab="Tab 1" class="w-inline-block w-tab-link w--current">
+            <div>Tab 1</div>
+        </a><a data-w-tab="Tab 2" class="w-inline-block w-tab-link">
+            <div>Tab 2</div>
+        </a><a data-w-tab="Tab 3" class="w-inline-block w-tab-link">
+            <div>Tab 3</div>
+        </a></div>
+        <div class="tabs-content w-tab-content">
+            <div data-w-tab="Tab 1" class="tab-pane-tab-1 w-tab-pane w--tab-active"></div>
+            <div data-w-tab="Tab 2" class="w-tab-pane"></div>
+            <div data-w-tab="Tab 3" class="w-tab-pane"></div>
+        </div>
+    </div>
+    <div id="logText" class="text-block-2">This is some text inside of a
+        div block.
+    </div>
+    <div id="buttonSubGrid" class="w-layout-grid grid-2">
+        <a href="#" id="sensorButton1" class="button-3 sensor w-button"> Button Text </a>
+        <div id="sensor1Text" class="sensor-text">T his is some text inside of a div block. </div>
+        <a id="sensorButton2" href="#" class="button-4 sensor w-button"> Button Text </a>
+        <div id="sensor2text" class="sensor-text"> This is some text inside of a div block. </div>
+    </div>
+    <h1 id="logTitle" class="heading">Log:</h1>
+</div>
+
+<script src="view/test.js"
+        type="text/javascript"></script>
