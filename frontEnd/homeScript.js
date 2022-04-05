@@ -1,3 +1,8 @@
-const logText = document.getElementById("logText")
+const startButton = document.getElementById("startButton")
 
-console.log(logText.innerText)
+startButton.addEventListener("click", (e) => {
+    e.preventDefault()
+    console.log("hit")
+})
+
+//console.log(logText.innerText)
