@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "electron-reload": "^2.0.0-alpha.1",
-    "node-fetch": "^3.2.3"
+    "node-fetch": "^3.2.3",
+    "python-shell": "^3.0.1"
   },
   "bugs": {
     "url": "https://github.com/aaaafireball/HydroponicsGui/issues"
