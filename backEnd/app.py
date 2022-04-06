@@ -1,6 +1,5 @@
 import multiprocessing
 import main
-import math
 
 if __name__ == "__main__":
 

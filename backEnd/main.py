@@ -1,5 +1,5 @@
 from flask import Flask, flash, render_template, redirect, url_for, jsonify, request, session
-import math
+import multiprocessing
 
 class BackendGUI():
     def __init__(self,app):
@@ -13,3 +13,7 @@ backend = BackendGUI(app)
 def index():
     return jsonify([{"Title":"World", "body": "the"}])
 
+@backend.app.route("/startSystem", methods=["POST"])
+def startSystem():
+
+    multiprocessing.Pool()
