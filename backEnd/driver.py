@@ -1,4 +1,4 @@
-import time
+'''import time
 from machine import Pin
 import machine
 import uasyncio as asyncio
@@ -178,3 +178,10 @@ except: # if something does break, catch the error and turn everything off
     time.sleep(120) # wait predefined amount of seconds for the water to completly drain (might need trial and error)
 
     sol.off() # close solenoid valve to stop draining
+'''
+# import time
+import json
+
+def main(json_data):
+    with open('test.txt','w') as outfile:
+        outfile.write(json.dumps(json_data))
