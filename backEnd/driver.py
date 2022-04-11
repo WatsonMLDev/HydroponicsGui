@@ -179,9 +179,20 @@ except: # if something does break, catch the error and turn everything off
 
     sol.off() # close solenoid valve to stop draining
 '''
-# import time
+
+import time
 import json
+from multiprocessing import Value, Process
+
+
+
+def start(json_persist, json_temp):
+    json_persist.value = json.dumps(json_temp)
+    return
+
 
 def main(json_data):
-    with open('test.txt','w') as outfile:
-        outfile.write(json.dumps(json_data))
+    while True:
+        with open('test.txt', 'a') as f:
+            f.write(json_data.value)
+        time.sleep(1)
