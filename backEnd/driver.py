@@ -184,15 +184,73 @@ import time
 import json
 from multiprocessing import Value, Process
 
+global json_temp
+json_temp = None
 
+def stop (kill_event):
+    kill_event.value = True
 
-def start(json_persist, json_temp):
-    json_persist.value = json.dumps(json_temp)
+    global json_temp
+    json_temp = None
+
+def start(accepted_json_value):
+    global json_temp
+    json_temp = accepted_json_value
+
     return
 
 
-def main(json_data):
+def main(kill_event):
+    global json_temp
+
+    # always loop this code over and over again
     while True:
-        with open('test.txt', 'a') as f:
-            f.write(json_data.value)
         time.sleep(1)
+        current_time = time.time() # get current timer
+
+
+        if json_temp is not None:
+            timeWaterCycle = json_temp["timeWaterCycle"]
+            timeStart = json_temp["timeStart"]
+            timeStop = json_temp["timeStop"]
+            bin1Nutrient1 = json_temp["bin1Nutrient1"]
+            bin1Nutrient2 = json_temp["bin1Nutrient2"]
+            bin1Nutrient3 = json_temp["bin1Nutrient3"]
+            bin1Nutrient4 = json_temp["bin1Nutrient4"]
+            bin1Nutrient5 = json_temp["bin1Nutrient5"]
+            bin1Nutrient6 = json_temp["bin1Nutrient6"]
+            bin1Nutrient7 = json_temp["bin1Nutrient7"]
+            bin1Nutrient8 = json_temp["bin1Nutrient8"]
+            bin1lights = json_temp["bin1lights"]
+            bin2Nutrient1 = json_temp["bin2Nutrient1"]
+            bin2Nutrient2 = json_temp["bin2Nutrient2"]
+            bin2Nutrient3 = json_temp["bin2Nutrient3"]
+            bin2Nutrient4 = json_temp["bin2Nutrient4"]
+            bin2Nutrient5 = json_temp["bin2Nutrient5"]
+            bin2Nutrient6 = json_temp["bin2Nutrient6"]
+            bin2Nutrient7 = json_temp["bin2Nutrient7"]
+            bin2Nutrient8 = json_temp["bin2Nutrient8"]
+            bin2lights = json_temp["bin2lights"]
+
+        if active_period == "yes": # whether or not we are giving the plant water for 12 hours (day-night cycle)
+
+            #--------------------------------------------------------------------------------------------
+            if current_time - time_last_checked >= interval: # Stops the water cycling for 12 hours if its been running for 12 hours
+                active_period = "no"
+                time_last_checked = current_time # resets the time we are counting to
+
+            else: #if it hasnt been 12 hours yet....
+                addWater() # starts water cycle that goes every 3 hours (or whatever you change it to)
+            #--------------------------------------------------------------------------------------------
+
+        else:
+
+            #--------------------------------------------------------------------------------------------
+            if current_time - time_last_checked >= interval: # Stops the water cycling for 12 hours if its been running for 12 hours
+
+                machine.reset() # resets the pico to start over again
+
+            else: #if it hasnt been 12 hours yet....
+
+                gc.collect() #do nothing and free up memory!!!!
+

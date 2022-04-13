@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import json
 import multiprocessing
-from ctypes import c_char_p
+from ctypes import c_char_p, c_bool
 import driver
 
 # class for holding serverside instances and threading instances
@@ -9,10 +9,12 @@ class BackendGUI():
     def __init__(self, app):
         self.app = app
 
+
         self.manager = multiprocessing.Manager()
         self.data = self.manager.Value(c_char_p, '{}')
+        self.kill_progrm = self.manager.Value((c_bool), False)
 
-        self.multithread = multiprocessing.Process(target=self.thread_main, args=(self.data,))
+        self.multithread = multiprocessing.Process(target=self.driver.main, args=(self.kill_progrm,))
 
 
 app = Flask(__name__)  # create the flask app
@@ -58,7 +60,6 @@ def startSystem():
             json.dump(data, f)  # write the data to the system.json file
         backend.multithread.start()  # start the system
 
-        #backend.data.value = json.dump(data)  # set the data to the data variable
         mp = multiprocessing.Process(target=driver.start, args=(backend.data,data))
         mp.start()
         mp.join()
@@ -86,4 +87,4 @@ def stopSystem():
         backend.multithread = None  # reset the process
         return jsonify({"success": True})  # return success for frontend validation
     except (Exception) as e:
-        return jsonify({"success": False, "error": e})  # return error for frontend validation
+        return jsonify({"success": False, "error": str(e)})  # return error for frontend validation
