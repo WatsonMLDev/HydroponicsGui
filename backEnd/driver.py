@@ -179,41 +179,43 @@ except: # if something does break, catch the error and turn everything off
 
     sol.off() # close solenoid valve to stop draining
 '''
-
+import multiprocessing
 import time
+import datetime
 import json
-from multiprocessing import Value, Process
 
-global json_temp
-json_temp = None
 
-def stop (kill_event):
+def stop(kill_event):
     kill_event.value = True
 
-    global json_temp
-    json_temp = None
+    with open("./backEnd/system.json", "w") as f:
+        json.dump({}, f)
 
-def start(accepted_json_value):
-    global json_temp
-    json_temp = accepted_json_value
 
-    return
+def water_cycle():
+    pass
 
 
 def main(kill_event):
-    global json_temp
+    with open('./backEnd/config.json', 'r') as json_file:
+        config = json.load(json_file)
 
     # always loop this code over and over again
     while True:
+        if kill_event.value:
+            break
+
         time.sleep(1)
-        current_time = time.time() # get current timer
+        current_time = datetime.datetime.now()  # get current timer
 
+        with open('./backEnd/system.json', 'r') as f:
+            json_temp = json.load(f)
 
-        if json_temp is not None:
-            timeWaterCycle = json_temp["timeWaterCycle"]
-            timeStart = json_temp["timeStart"]
-            timeStop = json_temp["timeStop"]
-            bin1Nutrient1 = json_temp["bin1Nutrient1"]
+        if json_temp is not "{}":
+            time_water_cycle = int(json_temp["timeWaterCycle"])
+            time_start = int(json_temp["timeStart"])
+            time_stop = int(json_temp["timeStop"])
+            '''bin1Nutrient1 = json_temp["bin1Nutrient1"]
             bin1Nutrient2 = json_temp["bin1Nutrient2"]
             bin1Nutrient3 = json_temp["bin1Nutrient3"]
             bin1Nutrient4 = json_temp["bin1Nutrient4"]
@@ -230,27 +232,20 @@ def main(kill_event):
             bin2Nutrient6 = json_temp["bin2Nutrient6"]
             bin2Nutrient7 = json_temp["bin2Nutrient7"]
             bin2Nutrient8 = json_temp["bin2Nutrient8"]
-            bin2lights = json_temp["bin2lights"]
-
-        if active_period == "yes": # whether or not we are giving the plant water for 12 hours (day-night cycle)
-
-            #--------------------------------------------------------------------------------------------
-            if current_time - time_last_checked >= interval: # Stops the water cycling for 12 hours if its been running for 12 hours
-                active_period = "no"
-                time_last_checked = current_time # resets the time we are counting to
-
-            else: #if it hasnt been 12 hours yet....
-                addWater() # starts water cycle that goes every 3 hours (or whatever you change it to)
-            #--------------------------------------------------------------------------------------------
-
+            bin2lights = json_temp["bin2lights"]'''
         else:
+            time_start = -1
+            time_stop = -1
+            time_water_cycle = -1
 
-            #--------------------------------------------------------------------------------------------
-            if current_time - time_last_checked >= interval: # Stops the water cycling for 12 hours if its been running for 12 hours
+        if time_start < current_time.hour < time_stop:
 
-                machine.reset() # resets the pico to start over again
+            last_water_cycle = datetime.datetime.strptime(config["lastWaterCycle"], "%Y-%m-%d %H:%M:%S.%f")
+            if (last_water_cycle + datetime.timedelta(hours=time_water_cycle)) < current_time:
+                multiprocessing.Process(target=water_cycle).start()
+                config["lastWaterCycle"] = str(current_time)
 
-            else: #if it hasnt been 12 hours yet....
-
-                gc.collect() #do nothing and free up memory!!!!
-
+        with open('./backEnd/system.json', 'w') as f:
+            json.dump(json_temp, f)
+        with open('./backEnd/config.json', 'w') as f:
+            json.dump(config, f)

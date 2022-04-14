@@ -12,9 +12,9 @@ class BackendGUI():
 
         self.manager = multiprocessing.Manager()
         self.data = self.manager.Value(c_char_p, '{}')
-        self.kill_progrm = self.manager.Value((c_bool), False)
+        self.kill_program = self.manager.Value((c_bool), False)
 
-        self.multithread = multiprocessing.Process(target=self.driver.main, args=(self.kill_progrm,))
+        self.multithread = multiprocessing.Process(target=driver.main, args=(self.kill_program,))
 
 
 app = Flask(__name__)  # create the flask app
@@ -59,10 +59,6 @@ def startSystem():
         with open("./backEnd/system.json", "w") as f:
             json.dump(data, f)  # write the data to the system.json file
         backend.multithread.start()  # start the system
-
-        mp = multiprocessing.Process(target=driver.start, args=(backend.data,data))
-        mp.start()
-        mp.join()
 
         return jsonify({"success": True})  # return success for frontend validation
     except (Exception) as e:
