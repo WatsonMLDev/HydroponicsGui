@@ -77,9 +77,15 @@ returns:
 @backend.app.route("/stopSystem", methods=["POST"])
 def stopSystem():
     try:
+        kill_process = multiprocessing.Process(target=driver.stop, args=(backend.kill_program,)) # set the kill_program to true
+        kill_process.start() # start the process
+        kill_process.join() # wait for the process to finish
+
         backend.multithread.terminate()  # terminate the process
         backend.multithread.join()  # wait for the process to finish
-        backend.multithread = None  # reset the process
+
+        backend.multithread = multiprocessing.Process(target=driver.main, args=(backend.kill_program,))  # reset the process
+
         return jsonify({"success": True})  # return success for frontend validation
     except (Exception) as e:
         return jsonify({"success": False, "error": str(e)})  # return error for frontend validation

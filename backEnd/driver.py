@@ -183,7 +183,11 @@ import multiprocessing
 import time
 import datetime
 import json
+import serial
 
+ser_barcode = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+
+# "1900-01-01 12:00:00.00"
 
 def stop(kill_event):
     kill_event.value = True
@@ -193,7 +197,57 @@ def stop(kill_event):
 
 
 def water_cycle():
-    pass
+    with open('./backEnd/system.json', 'r') as f:
+        json_temp = json.load(f)
+    bin1Nutrient1 = json_temp["bin1Nutrient1"]
+    bin1Nutrient2 = json_temp["bin1Nutrient2"]
+    bin1Nutrient3 = json_temp["bin1Nutrient3"]
+    bin1Nutrient4 = json_temp["bin1Nutrient4"]
+    bin1Nutrient5 = json_temp["bin1Nutrient5"]
+    bin1Nutrient6 = json_temp["bin1Nutrient6"]
+    bin1Nutrient7 = json_temp["bin1Nutrient7"]
+    bin1Nutrient8 = json_temp["bin1Nutrient8"]
+    bin1lights = json_temp["bin1lights"]
+    bin2Nutrient1 = json_temp["bin2Nutrient1"]
+    bin2Nutrient2 = json_temp["bin2Nutrient2"]
+    bin2Nutrient3 = json_temp["bin2Nutrient3"]
+    bin2Nutrient4 = json_temp["bin2Nutrient4"]
+    bin2Nutrient5 = json_temp["bin2Nutrient5"]
+    bin2Nutrient6 = json_temp["bin2Nutrient6"]
+    bin2Nutrient7 = json_temp["bin2Nutrient7"]
+    bin2Nutrient8 = json_temp["bin2Nutrient8"]
+    bin2lights = json_temp["bin2lights"]
+
+    ser_barcode.write("openSol1")
+    ser_barcode.write("openSol2")
+    ser_barcode.write("openSol3")
+
+    while True:
+        success_response = ser_barcode.readline().decode("UTF-8")
+        if success_response == "success":
+            break
+
+    ser_barcode.write("startPump")
+
+    while True:
+        flags = [False, False]
+
+        response = ser_barcode.readline().decode("UTF-8")
+        if response == "waterLevelHitBin1":
+            ser_barcode.write("closeSol2")
+            flags[0] = True
+        if response == "waterLevelHitBin2":
+            ser_barcode.write("closeSol3")
+            flags[1] = True
+
+        if flags[0] and flags[1]:
+            ser_barcode.write("closeSol1")
+            ser_barcode.write("stopPump")
+            break
+
+
+
+
 
 
 def main(kill_event):
@@ -216,24 +270,7 @@ def main(kill_event):
             time_water_cycle = int(json_temp["timeWaterCycle"])
             time_start = int(json_temp["timeStart"])
             time_stop = int(json_temp["timeStop"])
-            '''bin1Nutrient1 = json_temp["bin1Nutrient1"]
-            bin1Nutrient2 = json_temp["bin1Nutrient2"]
-            bin1Nutrient3 = json_temp["bin1Nutrient3"]
-            bin1Nutrient4 = json_temp["bin1Nutrient4"]
-            bin1Nutrient5 = json_temp["bin1Nutrient5"]
-            bin1Nutrient6 = json_temp["bin1Nutrient6"]
-            bin1Nutrient7 = json_temp["bin1Nutrient7"]
-            bin1Nutrient8 = json_temp["bin1Nutrient8"]
-            bin1lights = json_temp["bin1lights"]
-            bin2Nutrient1 = json_temp["bin2Nutrient1"]
-            bin2Nutrient2 = json_temp["bin2Nutrient2"]
-            bin2Nutrient3 = json_temp["bin2Nutrient3"]
-            bin2Nutrient4 = json_temp["bin2Nutrient4"]
-            bin2Nutrient5 = json_temp["bin2Nutrient5"]
-            bin2Nutrient6 = json_temp["bin2Nutrient6"]
-            bin2Nutrient7 = json_temp["bin2Nutrient7"]
-            bin2Nutrient8 = json_temp["bin2Nutrient8"]
-            bin2lights = json_temp["bin2lights"]'''
+
         else:
             time_start = -1
             time_stop = -1
@@ -243,10 +280,10 @@ def main(kill_event):
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycle"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle)) < current_time:
-                with open('test.txt', 'w') as f:
-                    f.write('test')
+
                 multiprocessing.Process(target=water_cycle).start()
-                config["lastWaterCycle"] = str(current_time)
+                config["lastWaterCycle"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
+
 
         with open('./backEnd/system.json', 'w') as f:
             json.dump(json_temp, f)
