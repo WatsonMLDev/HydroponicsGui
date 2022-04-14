@@ -242,9 +242,14 @@ def main(kill_event):
         if time_start < current_time.hour < time_stop:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycle"], "%Y-%m-%d %H:%M:%S.%f")
+
+            with open('test.txt', 'a') as f:
+                f.write('test')
+                f.write(str(last_water_cycle + datetime.timedelta(seconds=time_water_cycle)))
+                f.write(str(current_time))
+                f.write('-----------------------------------------------------------------------------')
+
             if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle)) < current_time:
-                with open('test.txt', 'w') as f:
-                    f.write('test')
                 multiprocessing.Process(target=water_cycle).start()
                 config["lastWaterCycle"] = str(current_time)
 
