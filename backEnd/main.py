@@ -9,7 +9,6 @@ class BackendGUI():
     def __init__(self, app):
         self.app = app
 
-
         self.manager = multiprocessing.Manager()
         self.data = self.manager.Value(c_char_p, '{}')
         self.kill_program = self.manager.Value((c_bool), False)

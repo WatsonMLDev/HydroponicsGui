@@ -211,7 +211,8 @@ def main(kill_event):
         with open('./backEnd/system.json', 'r') as f:
             json_temp = json.load(f)
 
-        if json_temp is not "{}":
+
+        if json_temp != "{}":
             time_water_cycle = int(json_temp["timeWaterCycle"])
             time_start = int(json_temp["timeStart"])
             time_stop = int(json_temp["timeStop"])
@@ -241,7 +242,9 @@ def main(kill_event):
         if time_start < current_time.hour < time_stop:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycle"], "%Y-%m-%d %H:%M:%S.%f")
-            if (last_water_cycle + datetime.timedelta(hours=time_water_cycle)) < current_time:
+            if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle)) < current_time:
+                with open('test.txt', 'w') as f:
+                    f.write('test')
                 multiprocessing.Process(target=water_cycle).start()
                 config["lastWaterCycle"] = str(current_time)
 

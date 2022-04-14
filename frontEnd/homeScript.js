@@ -70,6 +70,11 @@ startButton.addEventListener("click", (e) => {
                     stopButton.disabled = false
                     return
                 }
+                else{
+                    console.log("Error: " + data.error)
+                    statusText.innerText = "Status: " + data.error
+                    return
+                }
             }).catch(err => console.log(err))
     }
 })
