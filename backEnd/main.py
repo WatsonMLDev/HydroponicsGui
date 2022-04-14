@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 import json
 import multiprocessing
-from ctypes import c_char_p, c_bool
+from ctypes import c_bool,c_char_p
 import driver
 
 # class for holding serverside instances and threading instances

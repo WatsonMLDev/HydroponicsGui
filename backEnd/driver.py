@@ -184,6 +184,8 @@ import time
 import datetime
 import json
 import serial
+import multiprocessing
+from ctypes import c_char_p, c_bool
 
 ser_barcode = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 
@@ -196,27 +198,46 @@ def stop(kill_event):
         json.dump({}, f)
 
 
-def water_cycle():
+def water_cycle(success):
+
+    #region loading variables from system.json and setting them
     with open('./backEnd/system.json', 'r') as f:
         json_temp = json.load(f)
     bin1Nutrient1 = json_temp["bin1Nutrient1"]
+    bin1Nutrient1Amount = json_temp["binNutrient1Amount"]
     bin1Nutrient2 = json_temp["bin1Nutrient2"]
+    bin1Nutrient2Amount = json_temp["binNutrient2Amount"]
     bin1Nutrient3 = json_temp["bin1Nutrient3"]
+    bin1Nutrient3Amount = json_temp["binNutrient3Amount"]
     bin1Nutrient4 = json_temp["bin1Nutrient4"]
+    bin1Nutrient4Amount = json_temp["binNutrient4Amount"]
     bin1Nutrient5 = json_temp["bin1Nutrient5"]
+    bin1Nutrient5Amount = json_temp["binNutrient5Amount"]
     bin1Nutrient6 = json_temp["bin1Nutrient6"]
+    bin1Nutrient6Amount = json_temp["binNutrient6Amount"]
     bin1Nutrient7 = json_temp["bin1Nutrient7"]
+    bin1Nutrient7Amount = json_temp["binNutrient7Amount"]
     bin1Nutrient8 = json_temp["bin1Nutrient8"]
+    bin1Nutrient8Amount = json_temp["binNutrient8Amount"]
     bin1lights = json_temp["bin1lights"]
     bin2Nutrient1 = json_temp["bin2Nutrient1"]
+    bin2Nutrient1Amount = json_temp["binNutrient1Amount"]
     bin2Nutrient2 = json_temp["bin2Nutrient2"]
+    bin2Nutrient2Amount = json_temp["binNutrient2Amount"]
     bin2Nutrient3 = json_temp["bin2Nutrient3"]
+    bin2Nutrient3Amount = json_temp["binNutrient3Amount"]
     bin2Nutrient4 = json_temp["bin2Nutrient4"]
+    bin2Nutrient4Amount = json_temp["binNutrient4Amount"]
     bin2Nutrient5 = json_temp["bin2Nutrient5"]
+    bin2Nutrient5Amount = json_temp["binNutrient5Amount"]
     bin2Nutrient6 = json_temp["bin2Nutrient6"]
+    bin2Nutrient6Amount = json_temp["binNutrient6Amount"]
     bin2Nutrient7 = json_temp["bin2Nutrient7"]
+    bin2Nutrient7Amount = json_temp["binNutrient7Amount"]
     bin2Nutrient8 = json_temp["bin2Nutrient8"]
+    bin2Nutrient8Amount = json_temp["binNutrient8Amount"]
     bin2lights = json_temp["bin2lights"]
+    #endregion
 
     ser_barcode.write("openSol1")
     ser_barcode.write("openSol2")
@@ -246,6 +267,164 @@ def water_cycle():
             break
 
 
+    # region if statements for each individual setting
+    if bin1Nutrient1 == True:
+        ser_barcode.write("dispenseNutrient1")
+        ser_barcode.write(bin1Nutrient1Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient2 == True:
+        ser_barcode.write("dispenseNutrient2")
+        ser_barcode.write(bin1Nutrient2Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient3 == True:
+        ser_barcode.write("dispenseNutrient3")
+        ser_barcode.write(bin1Nutrient3Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient4 == True:
+        ser_barcode.write("dispenseNutrient4")
+        ser_barcode.write(bin1Nutrient4Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient5 == True:
+        ser_barcode.write("dispenseNutrient5")
+        ser_barcode.write(bin1Nutrient5Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient6 == True:
+        ser_barcode.write("dispenseNutrient6")
+        ser_barcode.write(bin1Nutrient6Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient7 == True:
+        ser_barcode.write("dispenseNutrient7")
+        ser_barcode.write(bin1Nutrient7Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1Nutrient8 == True:
+        ser_barcode.write("dispenseNutrient8")
+        ser_barcode.write(bin1Nutrient8Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient1 == True:
+        ser_barcode.write("dispenseNutrient1")
+        ser_barcode.write(bin2Nutrient1Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient2 == True:
+        ser_barcode.write("dispenseNutrient2")
+        ser_barcode.write(bin2Nutrient2Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient3 == True:
+        ser_barcode.write("dispenseNutrient3")
+        ser_barcode.write(bin2Nutrient3Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient4 == True:
+        ser_barcode.write("dispenseNutrient4")
+        ser_barcode.write(bin2Nutrient4Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient5 == True:
+        ser_barcode.write("dispenseNutrient5")
+        ser_barcode.write(bin2Nutrient5Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient6 == True:
+        ser_barcode.write("dispenseNutrient6")
+        ser_barcode.write(bin2Nutrient6Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient7 == True:
+        ser_barcode.write("dispenseNutrient7")
+        ser_barcode.write(bin2Nutrient7Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin2Nutrient8 == True:
+        ser_barcode.write("dispenseNutrient8")
+        ser_barcode.write(bin2Nutrient8Amount)
+        while True:
+            response = ser_barcode.readline().decode("UTF-8")
+            if response == "success":
+                break
+
+    if bin1lights == True:
+        ser_barcode.write("turnOnLight1")
+
+    if bin2lights == True:
+        ser_barcode.write("turnOnLight2")
+
+    #endregion
+
+    ser_barcode.write("startAirstone")
+    while True:
+        response = ser_barcode.readline().decode("UTF-8")
+        if response == "success":
+            break
+
+    success.value = True
+
+#opens sol2 and sol3, and opens sol4
+def drain_cycle(success):
+    ser_barcode.write("openSol2")
+    ser_barcode.write("openSol3")
+    ser_barcode.write("openSol4")
+    ser_barcode.write("drainWait")
+    while True:
+        response = ser_barcode.readline().decode("UTF-8")
+        if response == "success":
+            break
+    ser_barcode.write("closeSol2")
+    ser_barcode.write("closeSol3")
+    ser_barcode.write("closeSol4")
 
 
 
@@ -276,14 +455,20 @@ def main(kill_event):
             time_stop = -1
             time_water_cycle = -1
 
+        success_water_cycle = multiprocessing.Manager().Value(c_bool, False)
+        success_drain_cycle = multiprocessing.Manager().Value(c_bool, False)
+
         if time_start < current_time.hour < time_stop:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycle"], "%Y-%m-%d %H:%M:%S.%f")
-            if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle)) < current_time:
+            if (last_water_cycle + datetime.timedelta(hours=time_water_cycle)) < current_time:
 
-                multiprocessing.Process(target=water_cycle).start()
+                multiprocessing.Process(target=water_cycle, args=(success_water_cycle,)).start()
                 config["lastWaterCycle"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
+        if success_water_cycle.value == True:
+            success_water_cycle.value = False
+            multiprocessing.Process(target=drain_cycle, args=(success_drain_cycle,)).start()
 
         with open('./backEnd/system.json', 'w') as f:
             json.dump(json_temp, f)
