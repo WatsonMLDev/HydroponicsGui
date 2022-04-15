@@ -179,7 +179,7 @@ except: # if something does break, catch the error and turn everything off
 
     sol.off() # close solenoid valve to stop draining
 '''
-import multiprocessing
+
 import time
 import datetime
 import json
@@ -242,12 +242,7 @@ def water_cycle(success):
     ser_barcode.write("openSol1")
     ser_barcode.write("openSol2")
     ser_barcode.write("openSol3")
-
-    while True:
-        success_response = ser_barcode.readline().decode("UTF-8")
-        if success_response == "success":
-            break
-
+    time.sleep(.25)
     ser_barcode.write("startPump")
 
     while True:
@@ -269,132 +264,99 @@ def water_cycle(success):
 
     # region if statements for each individual setting
     if bin1Nutrient1 == True:
-        ser_barcode.write("dispenseNutrient1")
-        ser_barcode.write(bin1Nutrient1Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient1")
+        time.sleep(bin1Nutrient1Amount)
+        ser_barcode.write("stop1Nutrient1")
 
     if bin1Nutrient2 == True:
-        ser_barcode.write("dispenseNutrient2")
-        ser_barcode.write(bin1Nutrient2Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient2")
+        time.sleep(bin2Nutrient2Amount)
+        ser_barcode.write("stop1Nutrient2")
+
 
     if bin1Nutrient3 == True:
-        ser_barcode.write("dispenseNutrient3")
-        ser_barcode.write(bin1Nutrient3Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient3")
+        time.sleep(bin1Nutrient3Amount)
+        ser_barcode.write("stop1Nutrient3")
+
 
     if bin1Nutrient4 == True:
-        ser_barcode.write("dispenseNutrient4")
-        ser_barcode.write(bin1Nutrient4Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient4")
+        time.sleep(bin2Nutrient4Amount)
+        ser_barcode.write("stop1Nutrient4")
+
 
     if bin1Nutrient5 == True:
-        ser_barcode.write("dispenseNutrient5")
-        ser_barcode.write(bin1Nutrient5Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient5")
+        time.sleep(bin2Nutrient5Amount)
+        ser_barcode.write("stop1Nutrient5")
+
 
     if bin1Nutrient6 == True:
-        ser_barcode.write("dispenseNutrient6")
-        ser_barcode.write(bin1Nutrient6Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient6")
+        time.sleep(bin2Nutrient6Amount)
+        ser_barcode.write("stop1Nutrient6")
+
 
     if bin1Nutrient7 == True:
-        ser_barcode.write("dispenseNutrient7")
-        ser_barcode.write(bin1Nutrient7Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient7")
+        time.sleep(bin2Nutrient7Amount)
+        ser_barcode.write("stop1Nutrient7")
+
 
     if bin1Nutrient8 == True:
-        ser_barcode.write("dispenseNutrient8")
-        ser_barcode.write(bin1Nutrient8Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense1Nutrient8")
+        time.sleep(bin2Nutrient8Amount)
+        ser_barcode.write("stop1Nutrient8")
+
 
     if bin2Nutrient1 == True:
-        ser_barcode.write("dispenseNutrient1")
-        ser_barcode.write(bin2Nutrient1Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient1")
+        time.sleep(bin2Nutrient1Amount)
+        ser_barcode.write("stop2Nutrient1")
+
 
     if bin2Nutrient2 == True:
-        ser_barcode.write("dispenseNutrient2")
-        ser_barcode.write(bin2Nutrient2Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient2")
+        time.sleep(bin2Nutrient2Amount)
+        ser_barcode.write("stop2Nutrient2")
+
 
     if bin2Nutrient3 == True:
-        ser_barcode.write("dispenseNutrient3")
-        ser_barcode.write(bin2Nutrient3Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient3")
+        time.sleep(bin2Nutrient3Amount)
+        ser_barcode.write("stop2Nutrient3")
+
 
     if bin2Nutrient4 == True:
-        ser_barcode.write("dispenseNutrient4")
-        ser_barcode.write(bin2Nutrient4Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient4")
+        time.sleep(bin2Nutrient4Amount)
+        ser_barcode.write("stop2Nutrient4")
+
 
     if bin2Nutrient5 == True:
-        ser_barcode.write("dispenseNutrient5")
-        ser_barcode.write(bin2Nutrient5Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient5")
+        time.sleep(bin2Nutrient5Amount)
+        ser_barcode.write("stop2Nutrient5")
+
 
     if bin2Nutrient6 == True:
-        ser_barcode.write("dispenseNutrient6")
-        ser_barcode.write(bin2Nutrient6Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient6")
+        time.sleep(bin2Nutrient6Amount)
+        ser_barcode.write("stop2Nutrient6")
+
 
     if bin2Nutrient7 == True:
-        ser_barcode.write("dispenseNutrient7")
-        ser_barcode.write(bin2Nutrient7Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient7")
+        time.sleep(bin2Nutrient7Amount)
+        ser_barcode.write("stop2Nutrient7")
+
 
     if bin2Nutrient8 == True:
-        ser_barcode.write("dispenseNutrient8")
-        ser_barcode.write(bin2Nutrient8Amount)
-        while True:
-            response = ser_barcode.readline().decode("UTF-8")
-            if response == "success":
-                break
+        ser_barcode.write("dispense2Nutrient8")
+        time.sleep(bin2Nutrient8Amount)
+        ser_barcode.write("stop2Nutrient8")
+
 
     if bin1lights == True:
         ser_barcode.write("turnOnLight1")
@@ -418,15 +380,10 @@ def drain_cycle(success):
     ser_barcode.write("openSol3")
     ser_barcode.write("openSol4")
     ser_barcode.write("drainWait")
-    while True:
-        response = ser_barcode.readline().decode("UTF-8")
-        if response == "success":
-            break
+    time.sleep(60)
     ser_barcode.write("closeSol2")
     ser_barcode.write("closeSol3")
     ser_barcode.write("closeSol4")
-
-
 
 
 def main(kill_event):
@@ -444,12 +401,10 @@ def main(kill_event):
         with open('./backEnd/system.json', 'r') as f:
             json_temp = json.load(f)
 
-
         if json_temp != "{}":
             time_water_cycle = int(json_temp["timeWaterCycle"])
             time_start = int(json_temp["timeStart"])
             time_stop = int(json_temp["timeStop"])
-
         else:
             time_start = -1
             time_stop = -1
