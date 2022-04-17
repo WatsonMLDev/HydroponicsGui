@@ -1,6 +1,5 @@
-<!DOCTYPE html><!-- This site was created in Webflow. http://www.webflow.com --><!-- Last Published: Tue Apr 05 2022 02:28:35 GMT+0000 (Coordinated Universal Time) -->
-<html data-wf-domain="hydroponics-9ed4cc.webflow.io" data-wf-page="624a00c1c9692dcff3d7087d"
-      data-wf-site="624a00c1c9692d6b99d7087a">
+<!DOCTYPE html>
+<html data-wf-domain="hydroponics-9ed4cc.webflow.io">
 <head>
     <meta charset="utf-8"/>
     <title>Hydroponics</title>
@@ -9,146 +8,241 @@
     <link href="style.css"
           rel="stylesheet" type="text/css"/>
 </head>
-
 <body class="background">
-
-<div class="section wf-section">
-    <h4 class="heading">Hydroponics System</h4>
-    <a class="button header-button w-button" href="#" id="startButton">Start</a>
+<div class="section wf-section"><h4 class="heading">Hydroponics System</h4><a class="button header-button w-button" href="#"
+                                                                              id="startButton">Start</a>
     <div class="text-block-3" id="statusText">Status:</div>
-    <a class="button-2 w-button" href="#" id="killButton">Force Stop</a>
-</div>
-
-<div class="w-layout-grid grid">
+    <a class="button-2 w-button" href="#" id="killButton">Force Stop</a></div>
+<div class="w-layout-grid grid"><h1 class="heading" id="w-node-_632c1930-afd5-ac7e-5c5a-abb8d40842d7-f3d7087d">Log:</h1>
+    <div class="text-block-2 w-node-_665066e6-f9eb-4da1-912b-946a11dfdde8-f3d7087d" id="logText">This is some text
+        inside of a div block.
+    </div>
     <div class="tabs w-tabs" data-current="Tab 1" data-duration-in="300"
          data-duration-out="100" data-easing="ease" id="w-node-a02acad9-6a82-d8b7-16b1-04d945b4251f-f3d7087d">
-        <div class="tabs-menu w-tab-menu">
-            <a class="w-inline-block w-tab-link w--current" data-w-tab="Tab 1" id="Tab1">
-            <div>Settings</div>
-            </a>
-
-            <a class="w-inline-block w-tab-link" data-w-tab="Tab 2" id="Tab2">
-            <div>Graph 1</div>
-            </a>
-
-            <a class="w-inline-block w-tab-link" data-w-tab="Tab 3">
-            <div>Graph 2</div>
-            </a>
-        </div>
+        <div class="tabs-menu w-tab-menu"><a class="w-inline-block w-tab-link w--current" data-w-tab="Tab 1" id="Tab1">
+            <div>Tab 1</div>
+        </a><a class="w-inline-block w-tab-link" data-w-tab="Tab 2" id="Tab2">
+            <div>Tab 2</div>
+        </a><a class="w-inline-block w-tab-link" data-w-tab="Tab 3">
+            <div>Tab 3</div>
+        </a></div>
         <div class="tabs-content w-tab-content">
             <div class="tab-pane-tab-1 w-tab-pane w--tab-active" data-w-tab="Tab 1">
-                <div class="columns w-row">
-                    <div class="w-col w-col-6">
-                        <div class="tabtext">Time between each water cycle:</div>
-                        <div class="tabtext">Time to start nutrient delivery:</div>
-                        <div class="tabtext">Time to stop nutrient delivery:</div>
-                        <div class="tabtext">Nutrient 1:</div>
-                        <div class="tabtext">Nutrient 2:</div>
-                        <div class="tabtext">Nutrient 3:</div>
-                        <div class="tabtext">Nutrient 4:</div>
-                        <div class="tabtext">Nutrient 5:</div>
-                        <div class="tabtext">Nutrient 6:</div>
-                        <div class="tabtext">Nutrient 7:</div>
-                        <div class="tabtext">Nutrient 8:</div>
-                        <div class="tabtext">Lights:</div>
+                <div class="w-layout-grid grid-3">
+                    <div class="tabtext" id="w-node-f625b5df-59fd-60ca-a23a-b861171b9ea3-f3d7087d">Time between each
+                        water cycle:
                     </div>
-                    <div class="column w-col w-col-6">
-                        <div class="w-form">
-                            <form data-name="Email Form" id="email-form" method="get" name="email-form">
-                                <input
-                                    class="tabform w-input" data-name="timeWaterCycle" id="timeWaterCycle"
-                                    maxlength="256" name="timeWaterCycle" placeholder="3" type="number"/>
-                                <input class="tabform w-input"
-                                       data-name="timeStart" id="timeStart" maxlength="256" name="timeStart"
-                                       placeholder="8" type="number"/>
-                                <input
-                                    class="tabform w-input" data-name="timeStop" id="timeStop" maxlength="256"
-                                    name="timeStop" placeholder="8" type="number"/>
-                                <div class="w-row">
-                                    <div class="column-3 w-col w-col-6"><label class="w-checkbox checkbox-field"><input
-                                            class="w-checkbox-input" data-name="Checkbox" id="bin1Nutrient1" name="checkbox"
-                                            type="checkbox"/><span class="checktext w-form-label"
-                                                                            for="checkbox">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient2" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient3" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient4" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient5" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient6" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient7" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient8" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 3"
-                                                                      id="bin1Nutrient9" name="checkbox-3"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
-                                    <div class="column-2 w-col w-col-6"><label
-                                            class="w-checkbox checkbox-field-2"><input class="w-checkbox-input"
-                                                                                       data-name="Checkbox 2"
-                                                                                       id="bin2Nutrient1"
-                                                                                       name="checkbox-2"
-                                                                                       type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient2" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient3" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient4" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient5" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient6" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient7" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient8" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label><label
-                                            class="w-checkbox"><input class="w-checkbox-input" data-name="Checkbox 2"
-                                                                      id="bin2Nutrient9" name="checkbox-2"
-                                                                      type="checkbox"/><span
-                                            class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                    <div class="w-form" id="w-node-f916593e-dc40-2a8e-9ae2-48205e1bfa42-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2"><input
+                                class="tabform w-input" data-name="timeWaterCycle" id="timeWaterCycle" maxlength="256"
+                                name="timeWaterCycle" placeholder="3" type="number"/></form>
+                        <div class="w-form-done"></div>
+                          
+                    </div>
+                    <div class="tabtext" id="w-node-_08ad5b01-95b6-0daa-5784-a881d59e5caf-f3d7087d">Time to start
+                        nutrient delivery:
+                    </div>
+                    <div class="w-form" id="w-node-da343b04-79ed-5d24-50fd-9378223657bc-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2"><input
+                                class="tabform w-input" data-name="timeStart" id="timeStart" maxlength="256"
+                                name="timeStart" placeholder="8" type="number"/></form>
+                         
+                          
+                    </div>
+                    <div class="tabtext" id="w-node-_8f78aad4-2c3c-aa3b-8468-36744bc7e002-f3d7087d">Time to stop
+                        nutrient delivery:
+                    </div>
+                    <div class="w-form" id="w-node-f6d50bf9-48a8-ec60-bc23-491b5a6ab3c6-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2"><input
+                                class="tabform w-input" data-name="timeStop" id="timeStop" maxlength="256"
+                                name="timeStop" placeholder="8" type="number"/></form>
+                         
+                          
+                    </div>
+                    <div class="tabtext" id="w-node-_2fe96a2a-9045-8b27-3e66-779eb5a700fe-f3d7087d">Nutrient 1:</div>
+                    <div class="w-form" id="w-node-b51190ea-9dea-92f3-1931-e64383e0e7e9-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox checkbox-field"><input
+                                        class="w-checkbox-input" data-name="Checkbox" id="bin1Nutrient1" name="checkbox"
+                                        type="checkbox"/><span class="checktext w-form-label" for="checkbox">Bin 1</span></label>
                                 </div>
-                            </form>
-                            <div class="w-form-done">
-                                <div>Thank you! Your submission has been received!</div>
+                                <div class="w-col w-col-6"><label class="w-checkbox checkbox-field-2"><input
+                                        class="w-checkbox-input" data-name="Checkbox 2" id="bin2Nutrient1" name="checkbox-2"
+                                        type="checkbox"/><span class="checktext w-form-label" for="checkbox-2">Bin 2</span></label>
+                                </div>
                             </div>
-                            <div class="w-form-fail">
-                                <div>Oops! Something went wrong while submitting the form.</div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 2:</div>
+                    <div class="w-form" id="w-node-b7fb9a87-f5a1-839f-5321-931e3ed51f6b-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient2"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient2"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
                             </div>
-                        </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 3:</div>
+                    <div class="w-form" id="w-node-c20af2dc-7413-5f17-7bce-5d164969ff10-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient3"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient3"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 4:</div>
+                    <div class="w-form" id="w-node-fa247df0-cdfa-0ecd-daa3-55dba325da3c-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient4"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient4"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 5:</div>
+                    <div class="w-form" id="w-node-_76eab1d7-ce77-722b-270c-4d637e7175d4-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient5"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient5"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 6:</div>
+                    <div class="w-form" id="w-node-_1aa16af9-ddee-4d77-2182-041d7447fb88-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient6"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient6"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 7:</div>
+                    <div class="w-form" id="w-node-daf25dfd-1d06-6a6d-6ff7-f05502d99f74-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient7"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient7"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Nutrient 8:</div>
+                    <div class="w-form" id="w-node-d29dc252-9356-1b77-fd75-2fa0c815c0bf-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient8"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient8"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
+                    </div>
+                    <div class="tabtext">Lights:</div>
+                    <div class="w-form" id="w-node-dd0daf65-20b7-a0db-45e6-bbed5571fd7c-f3d7087d">
+                        <form data-name="Email Form 2" id="email-form-2" method="get" name="email-form-2">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 3"
+                                                                                            id="bin1Nutrient9"
+                                                                                            name="checkbox-3"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
+                                <div class="w-col w-col-6"><label class="w-checkbox"><input class="w-checkbox-input"
+                                                                                            data-name="Checkbox 2"
+                                                                                            id="bin2Nutrient9"
+                                                                                            name="checkbox-2"
+                                                                                            type="checkbox"/><span
+                                        class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                         
+                          
                     </div>
                 </div>
             </div>
@@ -156,20 +250,20 @@
             <div class="tab-pane-tab-3 w-tab-pane" data-w-tab="Tab 3"></div>
         </div>
     </div>
-    <div class="text-block-2 w-node-_665066e6-f9eb-4da1-912b-946a11dfdde8-f3d7087d" id="logText">System Started</div>
-    <div class="w-layout-grid grid-2" id="w-node-c213f7d7-e21a-40d6-c8ce-db3dac209127-f3d7087d">
-        <a class="button-3 sensor w-node-abbf82e9-4676-9023-0dc7-025f7a871650-f3d7087d w-button" href="#"
-           id="sensorButton1">EC Test</a>
+    <div class="w-layout-grid grid-2" id="w-node-c213f7d7-e21a-40d6-c8ce-db3dac209127-f3d7087d"><a class="button-3 sensor w-node-abbf82e9-4676-9023-0dc7-025f7a871650-f3d7087d w-button"
+                                                                                                   href="#"
+                                                                                                   id="sensorButton1">EC
+        Test</a>
         <div class="sensor-text w-node-c62df97a-3451-3e4a-c04d-9d5f9d9b1809-f3d7087d" id="sensorButton1Text">Offline
         </div>
-
         <a class="button-4 sensor w-node-_2af03123-519e-bdcd-4dfb-10869bb4d724-f3d7087d w-button" href="#"
-           id="sensorButton2">PH Test</a>
+           id="sensorButton2">Ph Test</a>
         <div class="sensor-text w-node-e0098be9-da58-59cc-1e38-9f2478427a43-f3d7087d" id="sensorButton2Text">Offline
         </div>
     </div>
-    <h1 class="heading" id="w-node-_632c1930-afd5-ac7e-5c5a-abb8d40842d7-f3d7087d">Log:</h1></div>
-<script src="../frontEnd/homeScript.js"
-        type="text/javascript"></script>
-</body>
+    
+</div>
+
+<script src="..\frontEnd\homeScript.js" type="text/javascript"></script>
+
 
