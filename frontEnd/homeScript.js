@@ -5,9 +5,13 @@ const startButton = document.getElementById("startButton")
 const stopButton = document.getElementById("killButton")
 const statusText = document.getElementById("statusText")
 
-const timeWaterCycle = document.getElementById("timeWaterCycle")
-const timeStart = document.getElementById("timeStart")
-const timeStop = document.getElementById("timeStop")
+const timeWaterCycleBin1 = document.getElementById("timeWaterCycleBin1")
+const timeStartBin1 = document.getElementById("timeStartBin1")
+const timeStopBin1 = document.getElementById("timeStopBin1")
+
+const timeWaterCycleBin2 = document.getElementById("timeWaterCycleBin2")
+const timeStartBin2 = document.getElementById("timeStartBin2")
+const timeStopBin2 = document.getElementById("timeStopBin2")
 
 const bin1Nutrient1 = document.getElementById("bin1Nutrient1")
 const bin1Nutrient2 = document.getElementById("bin1Nutrient2")
@@ -50,7 +54,8 @@ startButton.addEventListener("click", (e) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({timeWaterCycle: timeWaterCycle.value, timeStart: timeStart.value, timeStop: timeStop.value,
+            body: JSON.stringify({timeWaterCycleBin1: timeWaterCycleBin1.value, timeStartBin1: timeStartBin1.value, timeStopBin1: timeStopBin1.value,
+                timeWaterCycleBin2: timeWaterCycleBin2.value, timeStartBin2: timeStartBin2.value, timeStopBin2: timeStopBin2.value,
                 bin1Nutrient1: bin1Nutrient1.checked, bin1Nutrient2: bin1Nutrient2.checked,
                 bin1Nutrient3: bin1Nutrient3.checked, bin1Nutrient4: bin1Nutrient4.checked,
                 bin1Nutrient5: bin1Nutrient5.checked, bin1Nutrient6: bin1Nutrient6.checked,

@@ -198,8 +198,7 @@ def stop(kill_event):
     with open("./backEnd/system.json", "w") as f:
         json.dump({}, f)
 
-
-def water_cycle(success):
+def water_cycle_bin_1(success):
 
     #region loading variables from system.json and setting them
     with open('./backEnd/system.json', 'r') as f:
@@ -221,23 +220,6 @@ def water_cycle(success):
     bin1Nutrient8 = json_temp["bin1Nutrient8"]
     bin1Nutrient8Amount = json_temp["binNutrient8Amount"]
     bin1lights = json_temp["bin1lights"]
-    bin2Nutrient1 = json_temp["bin2Nutrient1"]
-    bin2Nutrient1Amount = json_temp["binNutrient1Amount"]
-    bin2Nutrient2 = json_temp["bin2Nutrient2"]
-    bin2Nutrient2Amount = json_temp["binNutrient2Amount"]
-    bin2Nutrient3 = json_temp["bin2Nutrient3"]
-    bin2Nutrient3Amount = json_temp["binNutrient3Amount"]
-    bin2Nutrient4 = json_temp["bin2Nutrient4"]
-    bin2Nutrient4Amount = json_temp["binNutrient4Amount"]
-    bin2Nutrient5 = json_temp["bin2Nutrient5"]
-    bin2Nutrient5Amount = json_temp["binNutrient5Amount"]
-    bin2Nutrient6 = json_temp["bin2Nutrient6"]
-    bin2Nutrient6Amount = json_temp["binNutrient6Amount"]
-    bin2Nutrient7 = json_temp["bin2Nutrient7"]
-    bin2Nutrient7Amount = json_temp["binNutrient7Amount"]
-    bin2Nutrient8 = json_temp["bin2Nutrient8"]
-    bin2Nutrient8Amount = json_temp["binNutrient8Amount"]
-    bin2lights = json_temp["bin2lights"]
     #endregion
 
     ser_barcode.write("openSol1")
@@ -249,18 +231,6 @@ def water_cycle(success):
         response = ser_barcode_sensors.readline().decode("UTF-8")
         if response == "waterLevelHitBin1":
             ser_barcode.write("closeSol2")
-            ser_barcode.write("stopPump")
-            break
-
-
-    ser_barcode.write("openSol3")
-    time.sleep(.25)
-    ser_barcode.write("startPump")
-
-    while True:
-        response = ser_barcode_sensors.readline().decode("UTF-8")
-        if response == "waterLevelHitBin2":
-            ser_barcode.write("closeSol3")
             ser_barcode.write("stopPump")
             break
 
@@ -314,6 +284,61 @@ def water_cycle(success):
         ser_barcode.write("stop1Nutrient8")
 
 
+    if bin1lights == True:
+        ser_barcode.write("turnOnLight1")
+
+
+    #endregion
+
+    ser_barcode.write("startAirstone")
+    while True:
+        response = ser_barcode.readline().decode("UTF-8")
+        if response == "success":
+            break
+
+    success.value = True
+
+def water_cycle_bin_2(success):
+
+    #region loading variables from system.json and setting them
+    with open('./backEnd/system.json', 'r') as f:
+        json_temp = json.load(f)
+
+    bin2Nutrient1 = json_temp["bin2Nutrient1"]
+    bin2Nutrient1Amount = json_temp["binNutrient1Amount"]
+    bin2Nutrient2 = json_temp["bin2Nutrient2"]
+    bin2Nutrient2Amount = json_temp["binNutrient2Amount"]
+    bin2Nutrient3 = json_temp["bin2Nutrient3"]
+    bin2Nutrient3Amount = json_temp["binNutrient3Amount"]
+    bin2Nutrient4 = json_temp["bin2Nutrient4"]
+    bin2Nutrient4Amount = json_temp["binNutrient4Amount"]
+    bin2Nutrient5 = json_temp["bin2Nutrient5"]
+    bin2Nutrient5Amount = json_temp["binNutrient5Amount"]
+    bin2Nutrient6 = json_temp["bin2Nutrient6"]
+    bin2Nutrient6Amount = json_temp["binNutrient6Amount"]
+    bin2Nutrient7 = json_temp["bin2Nutrient7"]
+    bin2Nutrient7Amount = json_temp["binNutrient7Amount"]
+    bin2Nutrient8 = json_temp["bin2Nutrient8"]
+    bin2Nutrient8Amount = json_temp["binNutrient8Amount"]
+    bin2lights = json_temp["bin2lights"]
+    #endregion
+
+    ser_barcode.write("openSol1")
+    ser_barcode.write("openSol3")
+    time.sleep(.25)
+    ser_barcode.write("startPump")
+
+    while True:
+        response = ser_barcode_sensors.readline().decode("UTF-8")
+        if response == "waterLevelHitBin2":
+            ser_barcode.write("closeSol3")
+            ser_barcode.write("stopPump")
+            break
+
+    ser_barcode.write("closeSol1")
+
+    # region if statements for each individual setting
+
     if bin2Nutrient1 == True:
         ser_barcode.write("dispense2Nutrient1")
         time.sleep(bin2Nutrient1Amount)
@@ -362,9 +387,6 @@ def water_cycle(success):
         ser_barcode.write("stop2Nutrient8")
 
 
-    if bin1lights == True:
-        ser_barcode.write("turnOnLight1")
-
     if bin2lights == True:
         ser_barcode.write("turnOnLight2")
 
@@ -406,28 +428,47 @@ def main(kill_event):
             json_temp = json.load(f)
 
         if json_temp != "{}":
-            time_water_cycle = int(json_temp["timeWaterCycle"])
-            time_start = int(json_temp["timeStart"])
-            time_stop = int(json_temp["timeStop"])
+            time_water_cycle_Bin_1 = int(json_temp["timeWaterCycleBin1"])
+            time_start_Bin_1 = int(json_temp["timeStartBin1"])
+            time_stop_Bin_1 = int(json_temp["timeStopBin1"])
+            time_water_cycle_Bin_2 = int(json_temp["timeWaterCycleBin2"])
+            time_start_Bin_2 = int(json_temp["timeStartBin2"])
+            time_stop_Bin_2 = int(json_temp["timeStopBin2"])
         else:
-            time_start = -1
-            time_stop = -1
-            time_water_cycle = -1
+            time_water_cycle_Bin_1 = -1
+            time_start_Bin_1 = -1
+            time_stop_Bin_1 = -1
+            time_water_cycle_Bin_2 = -1
+            time_start_Bin_2 = -1
+            time_stop_Bin_2 = -1
 
-        success_water_cycle = multiprocessing.Manager().Value(c_bool, False)
-        success_drain_cycle = multiprocessing.Manager().Value(c_bool, False)
+        success_water_cycle_bin_1 = multiprocessing.Manager().Value(c_bool, False)
+        success_drain_cycle_bin_1 = multiprocessing.Manager().Value(c_bool, False)
 
-        if time_start < current_time.hour < time_stop:
+        success_water_cycle_bin_2 = multiprocessing.Manager().Value(c_bool, False)
+        success_drain_cycle_bin_2 = multiprocessing.Manager().Value(c_bool, False)
 
-            last_water_cycle = datetime.datetime.strptime(config["lastWaterCycle"], "%Y-%m-%d %H:%M:%S.%f")
-            if (last_water_cycle + datetime.timedelta(hours=time_water_cycle)) < current_time:
+        if time_start_Bin_1 <= current_time.hour < time_stop_Bin_1:
 
-                multiprocessing.Process(target=water_cycle, args=(success_water_cycle,)).start()
-                config["lastWaterCycle"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
+            last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin1"], "%Y-%m-%d %H:%M:%S.%f")
+            if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle_Bin_1)) < current_time:
+                multiprocessing.Process(target=water_cycle_bin_1, args=(success_water_cycle_bin_1,)).start()
+                config["lastWaterCycleBin1"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
-        if success_water_cycle.value == True:
-            success_water_cycle.value = False
-            multiprocessing.Process(target=drain_cycle, args=(success_drain_cycle,)).start()
+        if time_start_Bin_2 < current_time.hour < time_stop_Bin_2:
+
+            last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin2"], "%Y-%m-%d %H:%M:%S.%f")
+            if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle_Bin_2)) < current_time:
+
+                multiprocessing.Process(target=water_cycle_bin_2, args=(success_water_cycle_bin_2,)).start()
+                config["lastWaterCycleBin2"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
+
+        if success_water_cycle_bin_1.value == True:
+            success_water_cycle_bin_1.value = False
+            multiprocessing.Process(target=drain_cycle, args=(success_drain_cycle_bin_1,)).start()
+        if success_water_cycle_bin_2.value == True:
+            success_water_cycle_bin_2.value = False
+            multiprocessing.Process(target=drain_cycle, args=(success_drain_cycle_bin_2,)).start()
 
         with open('./backEnd/system.json', 'w') as f:
             json.dump(json_temp, f)
