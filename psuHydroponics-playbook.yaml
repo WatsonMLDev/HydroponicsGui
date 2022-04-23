@@ -1,0 +1,69 @@
+- name: "raspindi setup"
+  hosts: localhost
+  connection: local
+  sudo: true
+  tasks:
+#    - name: register raspindi cloned folder
+#      stat:
+#        path: /etc/raspindi
+#      register: raspindi_folder_etc
+#
+#    - name: register raspindi op folder
+#      stat:
+#        path: /opt/raspindi
+#      register: raspindi_folder_opt
+
+    - name: register HydroponicsGui cloned/op folder
+      stat:
+        path: /opt/HydroponicsGui
+      register: HydroponicsGui_folder
+
+#    #--------------------------------------------------------------------------------------------------
+#    - name: clone hydroponics gui git repo
+#      command: chdir=/etc git clone https://github.com/raspberry-pi-camera/raspindi.git
+#      register: git_NDI_ran
+#      when: raspindi_folder_etc.stat.exists == False
+#
+#    - name: updating apt
+#      expect:
+#        command: apt update
+#        responses:
+#          'Do you want to continue\? \[Y/n\]' : Y
+#      when: raspindi_folder_opt.stat.exists == False and git_NDI_ran.changed
+#
+#    - name: installing dependencies
+#      expect:
+#        command: apt install libconfig++-dev libjasper-runtime libavahi-client3
+#        responses:
+#          'Do you want to continue\? \[Y/n\]' : Y
+#      when: raspindi_folder_opt.stat.exists == False and git_NDI_ran.changed
+#
+#    - name: run build script
+#      command: chdir=/etc/raspindi sh ./build.sh
+#      when: raspindi_folder_opt.stat.exists == False and git_NDI_ran.changed
+#
+#    - name: run install script
+#      command: chdir=/etc/raspindi sh ./install.sh
+#      when: raspindi_folder_opt.stat.exists == False and git_NDI_ran.changed
+#
+#    #--------------------------------------------------------------------------------------------------
+#    - name: Enable Camera
+#      shell: "raspi-config nonint do_camera 0"
+    #--------------------------------------------------------------------------------------------------
+    #TODO: add correctpaths
+
+    - name: clone hydroponics gui made by Charlie Watson
+      command: chdir=/opt git clone https://github.com/aaaafireball/HydroponicsGui.git
+      register: git_GUI_ran
+      when: HydroponicsGui_folder.stat.exists == False
+
+    - name: Creating a file with content
+      copy:
+        dest: "/etc/xdg/autostart/display.desktop"
+        content: |
+          [Desktop Entry]
+          Name=ndiGUI
+          Exec=/usr/bin/python3 /opt/raspindiGUI/ndiGUI.py
+    #--------------------------------------------------------------------------------------------------
+    - name: reboot pi
+      shell: reboot
