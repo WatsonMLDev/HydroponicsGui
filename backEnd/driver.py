@@ -187,7 +187,8 @@ import serial
 import multiprocessing
 from ctypes import c_char_p, c_bool
 
-ser_barcode = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+# ser_barcode = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+# ser_barcode_sensors = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 
 # "1900-01-01 12:00:00.00"
 
@@ -241,26 +242,29 @@ def water_cycle(success):
 
     ser_barcode.write("openSol1")
     ser_barcode.write("openSol2")
+    time.sleep(.25)
+    ser_barcode.write("startPump")
+
+    while True:
+        response = ser_barcode_sensors.readline().decode("UTF-8")
+        if response == "waterLevelHitBin1":
+            ser_barcode.write("closeSol2")
+            ser_barcode.write("stopPump")
+            break
+
+
     ser_barcode.write("openSol3")
     time.sleep(.25)
     ser_barcode.write("startPump")
 
     while True:
-        flags = [False, False]
-
-        response = ser_barcode.readline().decode("UTF-8")
-        if response == "waterLevelHitBin1":
-            ser_barcode.write("closeSol2")
-            flags[0] = True
+        response = ser_barcode_sensors.readline().decode("UTF-8")
         if response == "waterLevelHitBin2":
             ser_barcode.write("closeSol3")
-            flags[1] = True
-
-        if flags[0] and flags[1]:
-            ser_barcode.write("closeSol1")
             ser_barcode.write("stopPump")
             break
 
+    ser_barcode.write("closeSol1")
 
     # region if statements for each individual setting
     if bin1Nutrient1 == True:
@@ -270,7 +274,7 @@ def water_cycle(success):
 
     if bin1Nutrient2 == True:
         ser_barcode.write("dispense1Nutrient2")
-        time.sleep(bin2Nutrient2Amount)
+        time.sleep(bin1Nutrient2Amount)
         ser_barcode.write("stop1Nutrient2")
 
 
@@ -282,31 +286,31 @@ def water_cycle(success):
 
     if bin1Nutrient4 == True:
         ser_barcode.write("dispense1Nutrient4")
-        time.sleep(bin2Nutrient4Amount)
+        time.sleep(bin1Nutrient4Amount)
         ser_barcode.write("stop1Nutrient4")
 
 
     if bin1Nutrient5 == True:
         ser_barcode.write("dispense1Nutrient5")
-        time.sleep(bin2Nutrient5Amount)
+        time.sleep(bin1Nutrient5Amount)
         ser_barcode.write("stop1Nutrient5")
 
 
     if bin1Nutrient6 == True:
         ser_barcode.write("dispense1Nutrient6")
-        time.sleep(bin2Nutrient6Amount)
+        time.sleep(bin1Nutrient6Amount)
         ser_barcode.write("stop1Nutrient6")
 
 
     if bin1Nutrient7 == True:
         ser_barcode.write("dispense1Nutrient7")
-        time.sleep(bin2Nutrient7Amount)
+        time.sleep(bin1Nutrient7Amount)
         ser_barcode.write("stop1Nutrient7")
 
 
     if bin1Nutrient8 == True:
         ser_barcode.write("dispense1Nutrient8")
-        time.sleep(bin2Nutrient8Amount)
+        time.sleep(bin1Nutrient8Amount)
         ser_barcode.write("stop1Nutrient8")
 
 
