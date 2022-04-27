@@ -27,7 +27,7 @@ nutrient_pump_5_bin_2 = Pin(18,Pin.OUT)
 nutrient_pump_6_bin_2 = Pin(19,Pin.OUT)
 nutrient_pump_7_bin_2 = Pin(20,Pin.OUT)
 nutrient_pump_8_bin_2 = Pin(21,Pin.OUT)
-air_stone = Pin(22,Pin.OUT)
+
 
 usb = USB()
 input_msg = None

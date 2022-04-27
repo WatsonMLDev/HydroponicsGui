@@ -451,14 +451,14 @@ def main(kill_event):
         if time_start_Bin_1 <= current_time.hour < time_stop_Bin_1:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin1"], "%Y-%m-%d %H:%M:%S.%f")
-            if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle_Bin_1)) < current_time:
+            if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_1)) < current_time:
                 multiprocessing.Process(target=water_cycle_bin_1, args=(success_water_cycle_bin_1,)).start()
                 config["lastWaterCycleBin1"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
         if time_start_Bin_2 < current_time.hour < time_stop_Bin_2:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin2"], "%Y-%m-%d %H:%M:%S.%f")
-            if (last_water_cycle + datetime.timedelta(seconds=time_water_cycle_Bin_2)) < current_time:
+            if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_2)) < current_time:
 
                 multiprocessing.Process(target=water_cycle_bin_2, args=(success_water_cycle_bin_2,)).start()
                 config["lastWaterCycleBin2"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
