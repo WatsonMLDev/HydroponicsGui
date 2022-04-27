@@ -20,12 +20,13 @@ bufferSTDINthread = start_new_thread(usb.bufferSTDIN, ())
 
 
 while True:
-
+    string = ""
     if water_sensor_bin_1.value() == 0:
-        print("waterLevelHitBin1")
+        string += ("waterLevelHitBin1, ")
     if water_sensor_bin_2.value() == 0:
         print("waterLevelHitBin2")
     if water_sensor_storage.value() == 1:
         print("waterLevelStorageLow")
 
 
+    print(string)
