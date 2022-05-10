@@ -188,7 +188,7 @@ import multiprocessing
 from ctypes import c_char_p, c_bool
 
 # ser_barcode = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-# ser_barcode_sensors = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+# ser_barcode_sensors = serial.Serial('/dev/ttyACM1', 9600, timeout=1)
 
 # "1900-01-01 12:00:00.00"
 
