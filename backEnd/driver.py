@@ -400,6 +400,11 @@ def water_cycle_bin_2(success):
 
     success.value = True
 
+def sensors():
+    import ast
+    ast.literal_eval("{'muffin' : 'lolz', 'foo' : 'kitty'}")
+
+
 #opens sol2 and sol3, and opens sol4
 def drain_cycle(success):
     ser_barcode.write("openSol2")
