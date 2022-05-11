@@ -6,11 +6,11 @@ import sys
 
 def read_input():
     word = ""
-    while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:        
+    while sys.stdin in select.select([sys.stdin], [], [], 0)[0]:
         ch = sys.stdin.read(1)
         word+=ch
     return (str(word).strip())
-   
+
 
 nutrient_pump_1_bin_1 = Pin(0,Pin.OUT)
 nutrient_pump_2_bin_1 = Pin(1,Pin.OUT)
@@ -79,7 +79,7 @@ while True:
         solenoid_bin_2.value(0)
     if input_msg == "startPump":
         pump.value(0)
-    if input_msg == "startPump":
+    if input_msg == "stopPump":
         pump.value(1)
     if input_msg == "startAirStone":
         air_stone.value(1)

@@ -406,16 +406,11 @@ def sensors():
 
 
 #opens sol2 and sol3, and opens sol4
-def drain_cycle(success):
-    ser_barcode.write("openSol2")
-    ser_barcode.write("openSol3")
-    ser_barcode.write("openSol4")
-    ser_barcode.write("drainWait")
-    time.sleep(60)
-    ser_barcode.write("closeSol2")
-    ser_barcode.write("closeSol3")
-    ser_barcode.write("closeSol4")
+def drain_cycle_bin_1(success):
+    pass
 
+def drain_cycle_bin_2(success):
+    pass
 
 def main(kill_event):
     with open('./backEnd/config.json', 'r') as json_file:
