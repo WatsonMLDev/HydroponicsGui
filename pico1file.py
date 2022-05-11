@@ -160,7 +160,27 @@ while True:
     if input_msg == "stop2Nutrient8":
         nutrient_pump_8_bin_2.value(1)
 
-
+    if input_msg == "stopAll":
+        nutrient_pump_1_bin_1.value(1)
+        nutrient_pump_2_bin_1.value(1)
+        nutrient_pump_3_bin_1.value(1)
+        nutrient_pump_4_bin_1.value(1)
+        nutrient_pump_5_bin_1.value(1)
+        nutrient_pump_6_bin_1.value(1)
+        nutrient_pump_7_bin_1.value(1)
+        nutrient_pump_8_bin_1.value(1)
+        nutrient_pump_1_bin_2.value(1)
+        nutrient_pump_2_bin_2.value(1)
+        nutrient_pump_3_bin_2.value(1)
+        nutrient_pump_4_bin_2.value(1)
+        nutrient_pump_5_bin_2.value(1)
+        nutrient_pump_6_bin_2.value(1)
+        nutrient_pump_7_bin_2.value(1)
+        nutrient_pump_8_bin_2.value(1)
+        pump.value(1)
+        solenoid_bin_1.value(0)
+        solenoid_exit.value(0)
+        solenoid_bin_2.value(0)
 
 
 

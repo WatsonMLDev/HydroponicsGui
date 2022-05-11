@@ -21,7 +21,7 @@ const bin1Nutrient5 = document.getElementById("bin1Nutrient5")
 const bin1Nutrient6 = document.getElementById("bin1Nutrient6")
 const bin1Nutrient7 = document.getElementById("bin1Nutrient7")
 const bin1Nutrient8 = document.getElementById("bin1Nutrient8")
-const bin1lights = document.getElementById("bin1Nutrient9")
+const bin1lights = document.getElementById("bin1lights")
 
 const bin2Nutrient1 = document.getElementById("bin2Nutrient1")
 const bin2Nutrient2 = document.getElementById("bin2Nutrient2")
@@ -31,7 +31,7 @@ const bin2Nutrient5 = document.getElementById("bin2Nutrient5")
 const bin2Nutrient6 = document.getElementById("bin2Nutrient6")
 const bin2Nutrient7 = document.getElementById("bin2Nutrient7")
 const bin2Nutrient8 = document.getElementById("bin2Nutrient8")
-const bin2lights = document.getElementById("bin2Nutrient9")
+const bin2lights = document.getElementById("bin2lights")
 
 
 
