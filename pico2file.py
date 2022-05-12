@@ -11,8 +11,8 @@ from max6675 import MAX6675
 hall_effect_bin_1 = Pin(0, Pin.IN)
 hall_effect_bin_2 = Pin(1, Pin.IN)
 water_sensor_storage = Pin(2, Pin.IN)
-water_sensor_bin_2 = Pin(3, Pin.IN)
-water_sensor_bin_1 = Pin(4, Pin.IN)
+water_sensor_bin_1 = Pin(3, Pin.IN)
+water_sensor_bin_2 = Pin(4, Pin.IN)
 temperature_sensor_bin_1 = Pin(5, Pin.IN)
 cs_bin_1 = Pin(6, Pin.OUT)
 sck_bin_1 = Pin(7, Pin.OUT)
@@ -67,26 +67,26 @@ main_loop2 = asyncio.get_event_loop()
 
 while True:
     global flowCount
-    string = "{"
+    string = '{'
     if water_sensor_bin_1.value() == 1:
-        string += ("'waterLevelHitBin1': True,")
+        string += ('"waterLevelHitBin1": true,')
     else:
-        string += ("'waterLevelHitBin1': False,")
+        string += ('"waterLevelHitBin1": false,')
 
     if water_sensor_bin_2.value() == 1:
-        print("waterLevelHitBin2': True,")
+        string += ('"waterLevelHitBin2": true,')
     else:
-        string += ("'waterLevelHitBin2': False,")
+        string += ('"waterLevelHitBin2": false,')
 
     if water_sensor_storage.value() == 0:
-        print("waterLevelStorageLow': True,")
+        string += ('"waterLevelStorageLow": true,')
     else:
-        string += ("'waterLevelStorageLow': False,")
+        string += ('"waterLevelStorageLow": false,')
 
-    string += ("'tcsBin1': " + str(tcs_sensor_bin_1.read_u16()) + ",")
-    string += ("'tcsBin2': " + str(tcs_sensor_bin_2.read_u16()) + ",")
-    string += ("'temp1': " + str(temp1.read()) + ",")
-    string += ("'temp2': " + str(temp2.read()) + ",")
+    string += ('"tcsBin1": ' + str(tcs_sensor_bin_1.read_u16()) + ",")
+    string += ('"tcsBin2": ' + str(tcs_sensor_bin_2.read_u16()) + ",")
+    string += ('"temp1": ' + str(temp1.read()) + ",")
+    string += ('"temp2": ' + str(temp2.read()) + ",")
 
     command = read_input()
     flow1 = 0
@@ -101,8 +101,8 @@ while True:
     if command == "flow2Stop":
         main_loop2.close()  # stops reading from hall sensor
         mainFlowData2.totalCount = flowCount2  # sets the total pulse count in a python class (for data analysis)
-    string += ("'flowData1': " + str(mainFlowData1.totalFlow()) + ",")
-    string += ("'flowData2': " + str(mainFlowData2.totalFlow()))
+    string += ('"flowData1": ' + str(mainFlowData1.totalFlow()) + ",")
+    string += ('"flowData2": ' + str(mainFlowData2.totalFlow()))
     string += ("}")
 
     print(string)

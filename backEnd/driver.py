@@ -1,185 +1,3 @@
-'''import time
-from machine import Pin
-import machine
-import uasyncio as asyncio
-import sys
-sys.path.append('/WaterPumps')
-from WaterPumps.flowMeters import flowMeter,flowRunData
-import micropython
-import gc
-#-------------------------------------------------------------------------------------------------------------------------------------
-# pins to controll each hardware device and defines if the pins are taking in or letting out signals
-
-pump = Pin(0,Pin.OUT)
-sol = Pin(1,Pin.OUT)
-water = Pin(2,Pin.IN)
-nut = Pin(3,Pin.OUT)
-hall_sensor_flow = Pin(4,Pin.OUT)
-hall_sensor_data = Pin(5,Pin.IN)
-try:
-    # timings and other stuff:
-    how_many_nutrients = 5 # in mL
-    time_for_nut_pump = how_many_nutrients # peristaltic pump dispenses 1 ml per second
-
-    floodTime = 5 * 60 # 5 minutes (in seconds), time water stays on roots of plantsbefore draining
-    floodWait =  3 * 60 * 60 # 3 Hours (in seconds), time between floods
-    interval = 12 * 60 * 60 # 12 hours (in seconds), time between acvtive and inactive periods
-    active_period = "yes" # to give the plant water or not
-    there_is_power = True # to make the program allways run
-    water_drain_time = 14 # seconds for the water to drain from the tank (maybe improve with another sensor?)
-
-    mainFlowMeter = flowMeter(flowPin=5, rate=4.8) # to set up the hall efect flow sensor
-    mainFlowData = flowRunData() # to do calculations on our data
-    global flowCount # to make sure this variable can be accessed everythwere
-    flowCount = 0 # initializing the pulses
-
-    # turns off pumps and solinoid just to be safe
-    pump.off()
-    sol.off()
-
-    # turns on and off nutrient pump for predefined amount of time
-    nut.on()
-    time.sleep(time_for_nut_pump)
-    nut.off()
-
-    time_last_checked = time.time() # time that the program started
-
-    #--------------------------------------------------------------------------------------------------------------------------------------
-
-    def callbackflow(p): # function to count how many times the hall effect flow sensor rotates completly
-        global flowCount
-        flowCount += 1 # raises the counter by one when this is ran
-
-    #initialize flow sensor to calculate data
-    mainFlowMeter.counterPin.irq(trigger=mainFlowMeter.counterPin.IRQ_RISING, handler=callbackflow) # when there is an interupt, run callbackflow
-    main_loop = asyncio.get_event_loop()
-
-    #--------------------------------------------------------------------------------------------------------------------------------------
-    def addWater():
-        # keeps filling the planet container
-        try: # try to do this, but stop if there is an error
-            global flowCount
-
-            main_loop.create_task(mainFlowMeter.monitorFlowMeter()) # starts data collection on water flow
-
-            #start pumping in water inot plant reservoir
-            pump.on()
-            sol.on()
-            hall_sensor_flow.on()
-
-            flow_time_start = time.time() #counting how long each fill takes
-
-
-            while water.value() == 1: #keep looping this code untill water hits the water sensor
-                #keep the pump on,the solenoid valve open, and the hall sensor reading data
-                pass
-
-            print("{} PIT".format(time.time()-flow_time_start)) #print the time it took to pump in water
-
-            #calculating and sending flowrate per minute
-            AFR = (450/time.time()-flow_time_start)/60
-            print("{} AFR".format(AFR))
-
-            main_loop.close() # stops reading from hall sensor
-            mainFlowData.totalCount = flowCount # sets the total pulse count in a python class (for data analysis)
-
-            print("{} GIT".format(mainFlowData.totalFlow())) # prints how many liters filled the tank
-            #sys.stdout.write("%.3f Liters in tank\n" % mainFlowData.totalFlow())
-
-            flowCount = 0 # resets back to 0 so we can get accurate measurements for every time the pump is on
-
-            #turn the pump off and close the solenoid valve
-            sol.off()
-            pump.off()
-            hall_sensor_flow.off()
-
-            water_on_sensor_start = time.time()
-
-            time.sleep(floodTime) #keeps roots wet for the time we defined earlier
-
-            sol.on() #opens the solenoid valve to drain the water
-
-            timer_start = time.time()
-            while water.value() == 0: #if it over flows, keep draining
-                sol.on()
-                timer_end = time.time()
-                if timer_end-timer_start >= 10: # error occured, drain for 4 minutes to return to normal flow
-                    time.sleep(360)
-
-            time.sleep(water_drain_time) # wait predefined amount of seconds for the water to completly drain (might need trial and error)
-
-            #calculating and sending flowrate per minute
-            AFR = (450/time.time()-water_on_sensor_start)/60
-            print("{} AFR".format(AFR))
-
-            print("{} WST".format(time.time()-water_on_sensor_start))
-
-            sol.off() # close solenoid valve to stop draining
-
-            time.sleep(floodWait) # waits for a certain amount of time till this code might run again
-
-            gc.collect() #free up memory
-
-        except: # if something does break, catch the error and turn everything off
-            pump.off()
-            nut.off()
-            hall_sensor_flow.off()
-
-            print("big error occured")
-
-            # keeps the valve open to drain
-            while water.value() == 0:
-                sol.on()
-
-            time.sleep(120) # wait predefined amount of seconds for the water to completly drain (might need trial and error)
-
-            sol.off() # close solenoid valve to stop draining
-
-    #--------------------------------------------------------------------------------------------------------------------------------------
-    # always loop this code over and over again
-    while there_is_power:
-        time.sleep(1)
-        current_time = time.time() # get current timer
-
-        if active_period == "yes": # whether or not we are giving the plant water for 12 hours (day-night cycle)
-
-            #--------------------------------------------------------------------------------------------
-            if current_time - time_last_checked >= interval: # Stops the water cycling for 12 hours if its been running for 12 hours
-                active_period = "no"
-                time_last_checked = current_time # resets the time we are counting to
-
-            else: #if it hasnt been 12 hours yet....
-                addWater() # starts water cycle that goes every 3 hours (or whatever you change it to)
-            #--------------------------------------------------------------------------------------------
-
-        else:
-
-            #--------------------------------------------------------------------------------------------
-            if current_time - time_last_checked >= interval: # Stops the water cycling for 12 hours if its been running for 12 hours
-
-                machine.reset() # resets the pico to start over again
-
-            else: #if it hasnt been 12 hours yet....
-
-                gc.collect() #do nothing and free up memory!!!!
-
-
-except: # if something does break, catch the error and turn everything off
-    pump.off()
-    nut.off()
-    hall_sensor_flow.off()
-
-    print("big error occured")
-
-    # keeps the valve open to drain
-    while water.value() == 0:
-        sol.on()
-
-    time.sleep(120) # wait predefined amount of seconds for the water to completly drain (might need trial and error)
-
-    sol.off() # close solenoid valve to stop draining
-'''
-
 import time
 import datetime
 import json
@@ -188,14 +6,16 @@ import multiprocessing
 from ctypes import c_char_p, c_bool
 import ast
 
-
-# ser_barcode = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-# ser_barcode_sensors = serial.Serial('/dev/ttyACM1', 9600, timeout=1)
+global ser_barcode, ser_barcode_sensors
+ser_barcode = serial.Serial('/dev/ttyACM0', 9600)
+ser_barcode_sensors = serial.Serial('/dev/ttyACM1', 9600)
 
 # "1900-01-01 12:00:00.00"
 
 def sensors(sensor_data):
+    global ser_barcode_sensors
     while True:
+        time.sleep(.5)
         ser_barcode_sensors.close()
         ser_barcode_sensors.open()
         sensor_data.value = ser_barcode_sensors.readline().decode("UTF-8")
@@ -206,10 +26,10 @@ def ml_to_seconds(ml):
 
 
 def prime_pumps():
+    global ser_barcode
     priming_time = 2
-
-    with open("test.txt", "a") as  f:
-        f.write("test")
+    
+   
     ser_barcode.write("dispense1Nutrient1".encode("UTF-8"))
     time.sleep(priming_time)
     ser_barcode.write("stop1Nutrient1".encode("UTF-8"))
@@ -273,12 +93,18 @@ def prime_pumps():
     ser_barcode.write("dispense2Nutrient8".encode("UTF-8"))
     time.sleep(priming_time)
     ser_barcode.write("stop2Nutrient8".encode("UTF-8"))
-
+    
 
 def water_cycle_bin_1(success):
+    global sensor_data
+    ser_barcode_sensors.close()
+    ser_barcode_sensors.open()
+
     # region loading variables from system.json and setting them
     global sensor_data
-
+    
+    ser_barcode_sensors.close()
+    ser_barcode_sensors.open()
     with open('./backEnd/system.json', 'r') as f:
         json_temp = json.load(f)
     bin1Nutrient1 = json_temp["bin1Nutrient1"]
@@ -306,12 +132,15 @@ def water_cycle_bin_1(success):
     ser_barcode_sensors.write("flow1Start".encode("UTF-8"))
 
     while True:
-        response = ast.literal_eval(sensor_data.value)
-        if response["waterLevelHitBin1"] == True:
-            ser_barcode.write("stopPump".encode("UTF-8"))
-            ser_barcode.write("closeSol1".encode("UTF-8"))
-            ser_barcode_sensors.write("flow1Stop".encode("UTF-8"))
-            break
+        time.sleep(.5)
+        response = (sensor_data.value).strip("\r\n")
+        if response != '\r\n' and isinstance(response, str) and response != "\n" and response != "\r" and response != '':
+            response = json.loads(response)
+            if response["waterLevelHitBin1"] == True:
+                ser_barcode.write("stopPump".encode("UTF-8"))
+                ser_barcode.write("closeSol1".encode("UTF-8"))
+                ser_barcode_sensors.write("flow1Stop".encode("UTF-8"))
+                break
 
     # region if statements for each individual setting
     if bin1Nutrient1 == True:
@@ -367,6 +196,10 @@ def water_cycle_bin_1(success):
 
 
 def water_cycle_bin_2(success):
+    global sensor_data
+    ser_barcode_sensors.close()
+    ser_barcode_sensors.open()
+    
     # region loading variables from system.json and setting them
     with open('./backEnd/system.json', 'r') as f:
         json_temp = json.load(f)
@@ -396,12 +229,15 @@ def water_cycle_bin_2(success):
     ser_barcode_sensors.write("flow2Start".encode("UTF-8"))
 
     while True:
-        response = ast.literal_eval(sensor_data.value)
-        if response["waterLevelHitBin2"] == True:
-            ser_barcode.write("stopPump".encode("UTF-8"))
-            ser_barcode.write("closeSol2".encode("UTF-8"))
-            ser_barcode_sensors.write("flow2Stop".encode("UTF-8"))
-            break
+        time.sleep(.5)
+        response = (sensor_data.value).strip("\r\n")
+        if response != '\r\n' and isinstance(response, str) and response != "\n" and response != "\r" and response != '':
+            response = json.loads(response)
+            if response["waterLevelHitBin2"] == True:
+                ser_barcode.write("stopPump".encode("UTF-8"))
+                ser_barcode.write("closeSol2".encode("UTF-8"))
+                ser_barcode_sensors.write("flow2Stop".encode("UTF-8"))
+                break
 
     # region if statements for each individual setting
 
@@ -477,6 +313,8 @@ def drain_cycle_bin_2(success):
 
 def stop(kill_event):
     kill_event.value = True
+    
+    ser_barcode.write("stopAll".encode("UTF-8"))
 
     with open("./backEnd/system.json", "w") as f:
         json.dump({}, f)
@@ -525,16 +363,17 @@ def main(kill_event):
             run_cycle_Bin_2 = False
 
         if (time_start_Bin_1 <= current_time.hour < time_stop_Bin_1) and run_cycle_Bin_1:
-
+            
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin1"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_1)) < current_time:
                 multiprocessing.Process(target=water_cycle_bin_1, args=(success_water_cycle_bin_1,)).start()
                 config["lastWaterCycleBin1"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
         if (time_start_Bin_2 < current_time.hour < time_stop_Bin_2) and run_cycle_Bin_2:
-
+            
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin2"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_2)) < current_time:
+                print("hit")
                 multiprocessing.Process(target=water_cycle_bin_2, args=(success_water_cycle_bin_2,)).start()
                 config["lastWaterCycleBin2"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
@@ -557,7 +396,8 @@ def main(kill_event):
         with open('./backEnd/config.json', 'w') as f:
             json.dump(config, f)
 
+global sensor_data
+manager = multiprocessing.Manager()
+sensor_data = manager.Value(c_char_p, "")
+multiprocessing.Process(target=sensors, args=(sensor_data,)).start()
 
-"""global sensor_data
-sensor_data = multiprocessing.Manager().Value(c_char_p, "")
-multiprocessing.Process(target=sensors, args=(sensor_data,)).start()"""
