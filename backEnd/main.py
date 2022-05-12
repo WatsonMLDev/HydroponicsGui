@@ -105,3 +105,10 @@ def stop():
     if func is None:
         raise RuntimeError('Not running with the Werkzeug Server')
     func()
+
+@backend.app.route("/readLog", methods=["GET"])
+def readLog():
+    text = None
+    with open("log.txt", "r") as f:
+        text = f.read()
+    return jsonify({"success": True, "log": text})

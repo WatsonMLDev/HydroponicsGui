@@ -4,6 +4,7 @@ Variables for home page buttons and fields
 const startButton = document.getElementById("startButton")
 const stopButton = document.getElementById("killButton")
 const statusText = document.getElementById("statusText")
+const logText = document.getElementById("logText")
 
 const bin1On = document.getElementById("bin1On")
 const bin2On = document.getElementById("bin2On")
@@ -73,6 +74,79 @@ startButton.addEventListener("click", (e) => {
     if (startButton.disabled === true) {
         return
     } else {
+
+        if (bin1Nutrient1Amount.value === "") {
+            bin1Nutrient1Amount.value = "0"
+        }
+        if (bin1Nutrient2Amount.value === "") {
+            bin1Nutrient2Amount.value = "0"
+        }
+        if (bin1Nutrient3Amount.value === "") {
+            bin1Nutrient3Amount.value = "0"
+        }
+        if (bin1Nutrient4Amount.value === "") {
+            bin1Nutrient4Amount.value = "0"
+        }
+        if (bin1Nutrient5Amount.value === "") {
+            bin1Nutrient5Amount.value = "0"
+        }
+        if (bin1Nutrient6Amount.value === "") {
+            bin1Nutrient6Amount.value = "0"
+        }
+        if (bin1Nutrient7Amount.value === "") {
+            bin1Nutrient7Amount.value = "0"
+        }
+        if (bin1Nutrient8Amount.value === "") {
+            bin1Nutrient8Amount.value = "0"
+        }
+        if (bin2Nutrient1Amount.value === "") {
+            bin2Nutrient1Amount.value = "0"
+        }
+        if (bin2Nutrient2Amount.value === "") {
+            bin2Nutrient2Amount.value = "0"
+        }
+        if (bin2Nutrient3Amount.value === "") {
+            bin2Nutrient3Amount.value = "0"
+        }
+        if (bin2Nutrient4Amount.value === "") {
+            bin2Nutrient4Amount.value = "0"
+        }
+        if (bin2Nutrient5Amount.value === "") {
+            bin2Nutrient5Amount.value = "0"
+        }
+        if (bin2Nutrient6Amount.value === "") {
+            bin2Nutrient6Amount.value = "0"
+        }
+        if (bin2Nutrient7Amount.value === "") {
+            bin2Nutrient7Amount.value = "0"
+        }
+        if (bin2Nutrient8Amount.value === "") {
+            bin2Nutrient8Amount.value = "0"
+        }
+        if (timeWaterCycleLastsBin1.value === "") {
+            timeWaterCycleLastsBin1.value = "0"
+        }
+        if (timeWaterCycleLastsBin2.value === "") {
+            timeWaterCycleLastsBin2.value = "0"
+        }
+        if (timeWaterCycleBin1.value === "") {
+            timeWaterCycleBin1.value = "0"
+        }
+        if (timeWaterCycleBin2.value === "") {
+            timeWaterCycleBin2.value = "0"
+        }
+        if (timeStartBin1.value === "") {
+            timeStartBin1.value = "0"
+        }
+        if (timeStartBin2.value === "") {
+            timeStartBin2.value = "0"
+        }
+        if (timeStopBin1.value === "") {
+            timeStopBin1.value = "0"
+        }
+        if (timeStopBin2.value === "") {
+            timeStopBin2.value = "0"
+        }
         fetch('http://localhost:5000/startSystem', { // POST request to start the system
             method: "POST",
             headers: {
@@ -191,3 +265,14 @@ stopButton.addEventListener("click", (e) => {
             }).catch(err => console.log(err))
     }
 })
+
+// constantly updates text in the log text area
+setInterval(() => {
+    fetch('http://localhost:5000/readLog')
+        .then(res => res.json())
+        .then(data => {
+            logText.innerText = data.log
+        }
+        ).catch(err => console.log(err))
+}, 1000)
+

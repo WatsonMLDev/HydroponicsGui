@@ -6,7 +6,8 @@ import multiprocessing
 from ctypes import c_char_p, c_bool
 import ast
 
-global ser_barcode, ser_barcode_sensors
+
+# global ser_barcode, ser_barcode_sensors
 ser_barcode = serial.Serial('/dev/ttyACM0', 9600)
 ser_barcode_sensors = serial.Serial('/dev/ttyACM1', 9600)
 
@@ -19,6 +20,8 @@ def sensors(sensor_data):
         ser_barcode_sensors.close()
         ser_barcode_sensors.open()
         sensor_data.value = ser_barcode_sensors.readline().decode("UTF-8")
+        with open('raw_data.txt', 'a') as f:
+            f.write(str(sensor_data.value).strip("\r\n") + '\n')
 
 
 def ml_to_seconds(ml):
@@ -28,8 +31,10 @@ def ml_to_seconds(ml):
 def prime_pumps():
     global ser_barcode
     priming_time = 2
-    
-   
+
+    with open('log.txt', 'a') as f:
+        f.write("Priming pumps,  " + str(datetime.datetime.now()) + '\n')
+
     ser_barcode.write("dispense1Nutrient1".encode("UTF-8"))
     time.sleep(priming_time)
     ser_barcode.write("stop1Nutrient1".encode("UTF-8"))
@@ -93,7 +98,7 @@ def prime_pumps():
     ser_barcode.write("dispense2Nutrient8".encode("UTF-8"))
     time.sleep(priming_time)
     ser_barcode.write("stop2Nutrient8".encode("UTF-8"))
-    
+
 
 def water_cycle_bin_1(success):
     global sensor_data
@@ -102,7 +107,7 @@ def water_cycle_bin_1(success):
 
     # region loading variables from system.json and setting them
     global sensor_data
-    
+
     ser_barcode_sensors.close()
     ser_barcode_sensors.open()
     with open('./backEnd/system.json', 'r') as f:
@@ -134,7 +139,8 @@ def water_cycle_bin_1(success):
     while True:
         time.sleep(.5)
         response = (sensor_data.value).strip("\r\n")
-        if response != '\r\n' and isinstance(response, str) and response != "\n" and response != "\r" and response != '':
+        if response != '\r\n' and isinstance(response,
+                                             str) and response != "\n" and response != "\r" and response != '':
             response = json.loads(response)
             if response["waterLevelHitBin1"] == True:
                 ser_barcode.write("stopPump".encode("UTF-8"))
@@ -199,7 +205,7 @@ def water_cycle_bin_2(success):
     global sensor_data
     ser_barcode_sensors.close()
     ser_barcode_sensors.open()
-    
+
     # region loading variables from system.json and setting them
     with open('./backEnd/system.json', 'r') as f:
         json_temp = json.load(f)
@@ -231,7 +237,8 @@ def water_cycle_bin_2(success):
     while True:
         time.sleep(.5)
         response = (sensor_data.value).strip("\r\n")
-        if response != '\r\n' and isinstance(response, str) and response != "\n" and response != "\r" and response != '':
+        if response != '\r\n' and isinstance(response,
+                                             str) and response != "\n" and response != "\r" and response != '':
             response = json.loads(response)
             if response["waterLevelHitBin2"] == True:
                 ser_barcode.write("stopPump".encode("UTF-8"))
@@ -313,7 +320,7 @@ def drain_cycle_bin_2(success):
 
 def stop(kill_event):
     kill_event.value = True
-    
+
     ser_barcode.write("stopAll".encode("UTF-8"))
 
     with open("./backEnd/system.json", "w") as f:
@@ -321,6 +328,8 @@ def stop(kill_event):
 
 
 def main(kill_event):
+    with open('log.txt', 'a') as f:
+        f.write("Starting system loop" + str(datetime.datetime.now()) + '\n')
     with open('./backEnd/config.json', 'r') as json_file:
         config = json.load(json_file)
 
@@ -335,6 +344,9 @@ def main(kill_event):
     # always loop this code over and over again
     while True:
         if kill_event.value:
+            with open('log.txt', 'a') as f:
+                f.write(
+                    "killing system loop  " + str(datetime.datetime.now()) + '\n' + '----------------------------' + '\n')
             break
 
         time.sleep(1)
@@ -363,41 +375,56 @@ def main(kill_event):
             run_cycle_Bin_2 = False
 
         if (time_start_Bin_1 <= current_time.hour < time_stop_Bin_1) and run_cycle_Bin_1:
-            
+
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin1"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_1)) < current_time:
+                with open('log.txt', 'a') as f:
+                    f.write("Starting water cycle: bin1,  " + str(datetime.datetime.now()) + '\n')
                 multiprocessing.Process(target=water_cycle_bin_1, args=(success_water_cycle_bin_1,)).start()
                 config["lastWaterCycleBin1"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
         if (time_start_Bin_2 < current_time.hour < time_stop_Bin_2) and run_cycle_Bin_2:
-            
+
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin2"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_2)) < current_time:
-                print("hit")
+                with open('log.txt', 'a') as f:
+                    f.write("Starting water cycle: bin2,  " + str(datetime.datetime.now()) + '\n')
                 multiprocessing.Process(target=water_cycle_bin_2, args=(success_water_cycle_bin_2,)).start()
                 config["lastWaterCycleBin2"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
         if success_water_cycle_bin_1.value == True:
+            with open('log.txt', 'a') as f:
+                f.write("Filled successfully: bin1,  " + str(datetime.datetime.now()) + '\n')
             success_water_cycle_bin_1.value = False
             multiprocessing.Process(target=wait_cycle_bin_1, args=(success_wait_cycle_bin_1,)).start()
+            with open('log.txt', 'a') as f:
+                f.write("Waiting: bin1,  " + str(datetime.datetime.now()) + '\n')
         if success_water_cycle_bin_2.value == True:
+            with open('log.txt', 'a') as f:
+                f.write("Filled successfully: bin2,  " + str(datetime.datetime.now()) + '\n')
             success_water_cycle_bin_2.value = False
             multiprocessing.Process(target=wait_cycle_bin_2, args=(success_wait_cycle_bin_2,)).start()
+            with open('log.txt', 'a') as f:
+                f.write("Waiting: bin2,  " + str(datetime.datetime.now()) + '\n')
 
         if success_wait_cycle_bin_1.value == True:
             success_wait_cycle_bin_1.value = False
             multiprocessing.Process(target=drain_cycle_bin_1, args=(success_drain_cycle_bin_1,)).start()
+            with open('log.txt', 'a') as f:
+                f.write("Draining: bin1,  " + str(datetime.datetime.now()) + '\n')
         if success_wait_cycle_bin_2.value == True:
             success_wait_cycle_bin_2.value = False
             multiprocessing.Process(target=drain_cycle_bin_2, args=(success_drain_cycle_bin_2,)).start()
+            with open('log.txt', 'a') as f:
+                f.write("Draining: bin2,  " + str(datetime.datetime.now()) + '\n')
 
         with open('./backEnd/system.json', 'w') as f:
             json.dump(json_temp, f)
         with open('./backEnd/config.json', 'w') as f:
             json.dump(config, f)
 
+
 global sensor_data
 manager = multiprocessing.Manager()
 sensor_data = manager.Value(c_char_p, "")
 multiprocessing.Process(target=sensors, args=(sensor_data,)).start()
-
