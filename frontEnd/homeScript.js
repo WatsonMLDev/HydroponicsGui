@@ -158,9 +158,13 @@ primePumpButton.addEventListener("click", (e) => {
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            primePumpText.innerText = "Successfully primed pumps"
             return
-        }).catch(err => console.log(err))
-    primePumpText.innerText = "Successfully primed pumps"
+        }).catch(err => {
+        primePumpText.innerText = "error: " + err
+        console.log(err)
+    })
+
 })
 
 /*
