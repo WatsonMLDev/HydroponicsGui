@@ -68,6 +68,8 @@ def primePumps():
     priming_pumps = multiprocessing.Process(target=driver.prime_pumps)
     priming_pumps.start()
     priming_pumps.join()
+    with open("test.txt", "a") as  f:
+        f.write("test")
     return jsonify({"success": True})
 
 '''

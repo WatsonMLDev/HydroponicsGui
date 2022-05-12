@@ -208,6 +208,8 @@ def ml_to_seconds(ml):
 def prime_pumps():
     priming_time = 2
 
+    with open("test.txt", "a") as  f:
+        f.write("test")
     ser_barcode.write("dispense1Nutrient1".encode("UTF-8"))
     time.sleep(priming_time)
     ser_barcode.write("stop1Nutrient1".encode("UTF-8"))
@@ -556,6 +558,6 @@ def main(kill_event):
             json.dump(config, f)
 
 
-global sensor_data
+"""global sensor_data
 sensor_data = multiprocessing.Manager().Value(c_char_p, "")
-multiprocessing.Process(target=sensors, args=(sensor_data,)).start()
+multiprocessing.Process(target=sensors, args=(sensor_data,)).start()"""
