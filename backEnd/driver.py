@@ -510,6 +510,8 @@ def main(kill_event):
             time_water_cycle_Bin_2 = int(json_temp["timeWaterCycleBin2"])
             time_start_Bin_2 = int(json_temp["timeStartBin2"])
             time_stop_Bin_2 = int(json_temp["timeStopBin2"])
+            run_cycle_Bin_1 = json_temp["bin1On"]
+            run_cycle_Bin_2 = json_temp["bin2On"]
         else:
             time_water_cycle_Bin_1 = -1
             time_start_Bin_1 = -1
@@ -517,15 +519,17 @@ def main(kill_event):
             time_water_cycle_Bin_2 = -1
             time_start_Bin_2 = -1
             time_stop_Bin_2 = -1
+            run_cycle_Bin_1 = False
+            run_cycle_Bin_2 = False
 
-        if time_start_Bin_1 <= current_time.hour < time_stop_Bin_1:
+        if (time_start_Bin_1 <= current_time.hour < time_stop_Bin_1) and run_cycle_Bin_1:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin1"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_1)) < current_time:
                 multiprocessing.Process(target=water_cycle_bin_1, args=(success_water_cycle_bin_1,)).start()
                 config["lastWaterCycleBin1"] = current_time.strftime("%Y-%m-%d %H:%M:%S.%f")
 
-        if time_start_Bin_2 < current_time.hour < time_stop_Bin_2:
+        if (time_start_Bin_2 < current_time.hour < time_stop_Bin_2) and run_cycle_Bin_2:
 
             last_water_cycle = datetime.datetime.strptime(config["lastWaterCycleBin2"], "%Y-%m-%d %H:%M:%S.%f")
             if (last_water_cycle + datetime.timedelta(hours=time_water_cycle_Bin_2)) < current_time:

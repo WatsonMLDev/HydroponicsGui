@@ -22,11 +22,16 @@ function createWindow(){
 when the app is ready, create a new window and run the backend code
  */
 app.whenReady().then(() => {
-    PythonShell.run('./backEnd/app.py',null, function (err, result){
-        if (err) throw err;
-        console.log('result: ', result.toString());
-        res.send(result.toString())
-    });
+    try {
+        PythonShell.run('./backEnd/app.py',null, function (err, result){
+            if (err) throw err;
+            console.log('result: ', result.toString());
+            res.send(result.toString())
+        });
+    }
+    catch (err) {
+        console.log(err)
+    }
 
     createWindow() // creates the new window
 })

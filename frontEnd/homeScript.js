@@ -149,7 +149,7 @@ primePumpButton.addEventListener("click", (e) => {
         return
     }
     primePumpText.innerText = "Priming pumps..."
-    fetch('http://localhost:5000/primePumps', { // POST request to prim e the pumps
+    fetch('http://localhost:5000/primePumps', { // POST request to prime the pumps
         method: "POST",
         headers: {
             "Content-Type": "application/json"
