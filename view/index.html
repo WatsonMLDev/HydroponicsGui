@@ -1,18 +1,18 @@
-<!DOCTYPE html><!-- This site was created in Webflow. http://www.webflow.com --><!-- Last Published: Sat Apr 23 2022 04:29:48 GMT+0000 (Coordinated Universal Time) -->
+<!DOCTYPE html><!-- This site was created in Webflow. http://www.webflow.com --><!-- Last Published: Wed May 11 2022 23:57:50 GMT+0000 (Coordinated Universal Time) -->
 <head>
     <meta charset="utf-8"/>
     <title>Hydroponics</title>
     <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <meta content="Webflow" name="generator"/>
     <link href="style.css"
           rel="stylesheet" type="text/css"/>
 </head>
 <body class="background">
-<div class="section wf-section"><h4 class="heading">Hydroponics System</h4><a id="startButton" href="#"
-                                                                              class="button header-button w-button">Start</a>
+<div class="section wf-section"><h4 class="w-basic-heading heading">Hydroponics System</h4><a id="startButton" href="#"
+                                                                                              class="button header-button w-button">Start</a>
     <div id="statusText" class="text-block-3">Status:</div>
     <a id="killButton" href="#" class="button-2 w-button">Force Stop</a></div>
-<div class="w-layout-grid grid"><h1 id="w-node-_632c1930-afd5-ac7e-5c5a-abb8d40842d7-f3d7087d" class="heading">Log:</h1>
+<div class="w-layout-grid grid"><h1 id="w-node-_632c1930-afd5-ac7e-5c5a-abb8d40842d7-f3d7087d"
+                                    class="w-basic-heading heading">Log:</h1>
     <div id="logText" class="text-block-2 w-node-_665066e6-f9eb-4da1-912b-946a11dfdde8-f3d7087d">This is some text
         inside of a div block.
     </div>
@@ -28,13 +28,48 @@
         <div class="tabs-content w-tab-content">
             <div data-w-tab="Tab 1" class="tab-pane-tab-1 w-tab-pane w--tab-active">
                 <div class="w-layout-grid grid-3">
+                    <div id="w-node-af74df37-3dcb-73db-bdf8-cbd0f14d1a93-f3d7087d" class="tabtext">Should be doing
+                        cycles?
+                    </div>
+                    <div id="w-node-_3af5c56b-b288-e109-aa46-0bd8ea010f7a-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="w-row">
+                                <div class="w-col w-col-6"><label class="w-checkbox checkbox-field"><input
+                                        type="checkbox" id="bin1On" name="checkbox" data-name="Checkbox"
+                                        class="w-checkbox-input"/><span class="checktext w-form-label" for="checkbox">Bin 1</span></label>
+                                </div>
+                                <div class="w-col w-col-6"><label class="w-checkbox checkbox-field-2"><input
+                                        type="checkbox" id="bin2On" name="checkbox-2" data-name="Checkbox 2"
+                                        class="w-checkbox-input"/><span class="checktext w-form-label" for="checkbox-2">Bin 2</span></label>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
                     <div id="w-node-f625b5df-59fd-60ca-a23a-b861171b9ea3-f3d7087d" class="tabtext">Time between each
                         water cycle for bin 1 (in hours):
+                    </div>
+                    <div id="w-node-_160bfcaf-cdc1-f93c-739d-c7e05ceca9db-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
+                                type="number" class="tabform w-input" maxlength="256" name="timeWaterCycle"
+                                data-name="timeWaterCycle" placeholder="3" id="timeWaterCycleBin1"/></form>
+                        <div class="w-form-done"></div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                    <div id="w-node-_7cc99b7f-a051-9340-109e-54c3692c5132-f3d7087d" class="tabtext">Time that water
+                        cycles last for bin 1 (in minutes):
                     </div>
                     <div id="w-node-f916593e-dc40-2a8e-9ae2-48205e1bfa42-f3d7087d" class="w-form">
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
                                 type="number" class="tabform w-input" maxlength="256" name="timeWaterCycle"
-                                data-name="timeWaterCycle" placeholder="3" id="timeWaterCycleBin1"/></form>
+                                data-name="timeWaterCycle" placeholder="3" id="timeWaterCycleLastsBin1"/></form>
                         <div class="w-form-done"></div>
                         <div class="w-form-fail">
                             <div>Oops! Something went wrong while submitting the form.</div>
@@ -75,6 +110,18 @@
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
                                 type="number" class="tabform w-input" maxlength="256" name="timeWaterCycle-2"
                                 data-name="Time Water Cycle 2" placeholder="3" id="timeWaterCycleBin2"/></form>
+                        <div class="w-form-done"></div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                    <div id="w-node-_90e4206a-8a80-9ad4-d9dc-592d3da94547-f3d7087d" class="tabtext">Time that water
+                        cycles last for bin 2 (in minutes):
+                    </div>
+                    <div id="w-node-_753b9062-0e9a-f10c-254c-78d6d243a1da-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get"><input
+                                type="number" class="tabform w-input" maxlength="256" name="timeWaterCycle"
+                                data-name="timeWaterCycle" placeholder="3" id="timeWaterCycleLastsBin2"/></form>
                         <div class="w-form-done"></div>
                         <div class="w-form-fail">
                             <div>Oops! Something went wrong while submitting the form.</div>
@@ -129,6 +176,27 @@
                             <div>Oops! Something went wrong while submitting the form.</div>
                         </div>
                     </div>
+                    <div id="w-node-_7cf16ba8-2177-a30f-078c-20bb0af37a32-f3d7087d" class="tabtext">Nutrient 1 amount:
+                    </div>
+                    <div id="w-node-_3d04e0dc-58f6-ced3-999e-69871a6a61b1-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient1bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient1bin2Amount"/></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
                     <div class="tabtext">Nutrient 2:</div>
                     <div id="w-node-b7fb9a87-f5a1-839f-5321-931e3ed51f6b-f3d7087d" class="w-form">
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
@@ -145,6 +213,27 @@
                                                                                             data-name="Checkbox 2"
                                                                                             class="w-checkbox-input"/><span
                                         class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                    <div id="w-node-cf710328-56ee-9c53-a742-c1339a984865-f3d7087d" class="tabtext">Nutrient 2 amount:
+                    </div>
+                    <div id="w-node-_29a7c53b-33e0-aac2-d6f9-6c461f73aee7-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient2bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient2bin2Amount"/></div>
                             </div>
                         </form>
                         <div class="w-form-done">
@@ -179,6 +268,27 @@
                             <div>Oops! Something went wrong while submitting the form.</div>
                         </div>
                     </div>
+                    <div id="w-node-f0c62c1f-3f19-6fab-2050-c2512e279af5-f3d7087d" class="tabtext">Nutrient 3 amount:
+                    </div>
+                    <div id="w-node-_946f0836-f985-6692-04a3-74df3a79b291-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient3bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient3bin2Amount"/></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
                     <div class="tabtext">Nutrient 4:</div>
                     <div id="w-node-fa247df0-cdfa-0ecd-daa3-55dba325da3c-f3d7087d" class="w-form">
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
@@ -195,6 +305,27 @@
                                                                                             data-name="Checkbox 2"
                                                                                             class="w-checkbox-input"/><span
                                         class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                    <div id="w-node-a29d375c-2e13-2ed4-0ab4-97cbd32830da-f3d7087d" class="tabtext">Nutrient 4 amount:
+                    </div>
+                    <div id="w-node-e1a85e0b-d50b-74e9-fc90-e698e8431c9f-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient4bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient4bin2Amount"/></div>
                             </div>
                         </form>
                         <div class="w-form-done">
@@ -229,6 +360,27 @@
                             <div>Oops! Something went wrong while submitting the form.</div>
                         </div>
                     </div>
+                    <div id="w-node-bc0dbfad-eaf3-6ca9-f75b-ed7f471575e8-f3d7087d" class="tabtext">Nutrient 5 amount:
+                    </div>
+                    <div id="w-node-_0f9c4c1b-fab0-ca28-64b9-8a1b6c2baa84-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient5bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient5bin2Amount"/></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
                     <div class="tabtext">Nutrient 6:</div>
                     <div id="w-node-_1aa16af9-ddee-4d77-2182-041d7447fb88-f3d7087d" class="w-form">
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
@@ -245,6 +397,27 @@
                                                                                             data-name="Checkbox 2"
                                                                                             class="w-checkbox-input"/><span
                                         class="checktext w-form-label" for="checkbox-2">Bin 2</span></label></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
+                    <div id="w-node-_01897793-4310-0dde-76cb-cdce1a906b24-f3d7087d" class="tabtext">Nutrient 6 amount:
+                    </div>
+                    <div id="w-node-_9b6f9593-6019-f325-d3ca-a57a2ba585e7-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient6bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient6bin2Amount"/></div>
                             </div>
                         </form>
                         <div class="w-form-done">
@@ -279,6 +452,27 @@
                             <div>Oops! Something went wrong while submitting the form.</div>
                         </div>
                     </div>
+                    <div id="w-node-_7e415619-63b7-7cda-6dee-f04968a05810-f3d7087d" class="tabtext">Nutrient 7 amount:
+                    </div>
+                    <div id="w-node-a72363b6-f5d0-048a-2fec-fce78170c681-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient7bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient7bin2Amount"/></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
                     <div class="tabtext">Nutrient 8:</div>
                     <div id="w-node-d29dc252-9356-1b77-fd75-2fa0c815c0bf-f3d7087d" class="w-form">
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
@@ -304,18 +498,38 @@
                             <div>Oops! Something went wrong while submitting the form.</div>
                         </div>
                     </div>
+                    <div class="tabtext">Nutrient 8 amount:</div>
+                    <div id="w-node-_053862e3-3b28-8ef5-ba1a-bc65fd62c28d-f3d7087d" class="w-form">
+                        <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
+                            <div class="columns-2 w-row">
+                                <div class="w-col w-col-6"><input type="number" class="tabform w-input" maxlength="256"
+                                                                  name="timeStop-2" data-name="Time Stop 2"
+                                                                  placeholder="0" id="nutrient8bin1Amount"/></div>
+                                <div class="column-4 w-col w-col-6"><input type="number" class="tabform w-input"
+                                                                           maxlength="256" name="timeStop-2"
+                                                                           data-name="Time Stop 2" placeholder="0"
+                                                                           id="nutrient8bin2Amount"/></div>
+                            </div>
+                        </form>
+                        <div class="w-form-done">
+                            <div>Thank you! Your submission has been received!</div>
+                        </div>
+                        <div class="w-form-fail">
+                            <div>Oops! Something went wrong while submitting the form.</div>
+                        </div>
+                    </div>
                     <div class="tabtext">Lights:</div>
-                    <div id="w-node-dd0daf65-20b7-a0db-45e6-bbed5571fd7c-f3d7087d" class="w-form">
+                    <div id="w-node-_986cea10-9617-dae8-4b32-e842acc5fa66-f3d7087d" class="w-form">
                         <form id="email-form-2" name="email-form-2" data-name="Email Form 2" method="get">
                             <div class="w-row">
                                 <div class="w-col w-col-6"><label class="w-checkbox"><input type="checkbox"
-                                                                                            id="bin1Nutrient9"
+                                                                                            id="bin1Lights"
                                                                                             name="checkbox-3"
                                                                                             data-name="Checkbox 3"
                                                                                             class="w-checkbox-input"/><span
                                         class="checktext w-form-label" for="checkbox-3">Bin 1</span></label></div>
                                 <div class="w-col w-col-6"><label class="w-checkbox"><input type="checkbox"
-                                                                                            id="bin2Nutrient9"
+                                                                                            id="bin2Lights"
                                                                                             name="checkbox-2"
                                                                                             data-name="Checkbox 2"
                                                                                             class="w-checkbox-input"/><span
@@ -336,10 +550,14 @@
         </div>
     </div>
     <div id="w-node-c213f7d7-e21a-40d6-c8ce-db3dac209127-f3d7087d" class="w-layout-grid grid-2"><a href="#"
-                                                                                                   id="sensorButton1"
-                                                                                                   class="button-3 sensor w-node-abbf82e9-4676-9023-0dc7-025f7a871650-f3d7087d w-button">EC
-        Test</a>
-        <div id="sensorButton1Text" class="sensor-text w-node-c62df97a-3451-3e4a-c04d-9d5f9d9b1809-f3d7087d">Offline
+                                                                                                   id="primePumpButton"
+                                                                                                   class="button-3 sensor w-node-abbf82e9-4676-9023-0dc7-025f7a871650-f3d7087d w-button">Prime
+        nutrient pumps</a>
+        <div id="primePumpsText" class="sensor-text w-node-c62df97a-3451-3e4a-c04d-9d5f9d9b1809-f3d7087d">Offline
+        </div>
+        <a href="#" id="sensorButton1"
+           class="button-3 sensor w-node-_131543aa-9f7c-2863-343d-f801d9d0ff5e-f3d7087d w-button">EC Test</a>
+        <div id="sensorButton1Text" class="sensor-text w-node-bd9a624f-66b2-d5d5-d4fd-234b08bb942c-f3d7087d">Offline
         </div>
         <a id="sensorButton2" href="#"
            class="button-4 sensor w-node-_2af03123-519e-bdcd-4dfb-10869bb4d724-f3d7087d w-button">Ph Test</a>
@@ -347,6 +565,6 @@
         </div>
     </div>
 </div>
-
-<script src="..\frontEnd\homeScript.js" type="text/javascript"></script>
+<script src="../frontEnd/homeScript.js"
+        type="text/javascript"></script>
 

@@ -63,6 +63,13 @@ def startSystem():
     except (Exception) as e:
         return jsonify({"success": False, "error": str(e)})  # return error for frontend validation
 
+@backend.app.route("/primePumps", methods=["POST"])
+def primePumps():
+    priming_pumps = multiprocessing.Process(target=driver.prime_pumps)
+    priming_pumps.start()
+    priming_pumps.join()
+    return jsonify({"success": True})
+
 '''
 Stops the water system
 
