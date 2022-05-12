@@ -96,3 +96,10 @@ def stopSystem():
         return jsonify({"success": True})  # return success for frontend validation
     except (Exception) as e:
         return jsonify({"success": False, "error": str(e)})  # return error for frontend validation
+
+@backend.app.route("/stop", methods=["POST"])
+def stop():
+    func = request.environ.get('werkzeug.server.shutdown')
+    if func is None:
+        raise RuntimeError('Not running with the Werkzeug Server')
+    func()
